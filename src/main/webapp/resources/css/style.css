@@ -1,0 +1,287 @@
+html {
+    font-family: "Microsoft Yahei", arial, helvetica, sans-serif;
+}
+
+html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, a, code, em, img, q, small, strong, dd, dl, dt, li, ol, ul, fieldset, form, label, table, tbody, tr, th, td, input {
+    border: 0 none;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #f8f8f8;
+}
+
+a {
+    color: #333;
+    text-decoration: none;
+}
+
+a:visited {
+    color: #999;
+}
+
+a:hover {
+    color: #d00;
+    text-decoration: underline;
+}
+
+.clear {
+    clear: both;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+img {
+    vertical-align: baseline;
+}
+
+#wrapper {
+    background-color: #fff;
+    margin: 0 auto;
+}
+
+#header {
+    display: block;
+    left: 0;
+    overflow: hidden;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 999;
+}
+
+#header.relative {
+    position: relative;
+}
+
+.top_bar .abs_m {
+    color: #fff;
+    font-size: 20px;
+    line-height: 44px;
+    text-align: center;
+    width: 100%;
+}
+
+.top_bar {
+    background: #d43d3d none repeat scroll 0 0;
+    height: 44px;
+    position: relative;
+}
+
+.top_menu_bar {
+    background: rgba(255, 255, 255, 0.95) none repeat scroll 0 0;
+    box-sizing: border-box;
+    height: 37px;
+    border-bottom: 1px solid #e5e5e5;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#EAffffff, endColorstr=#EAffffff);
+}
+
+.top_menu_bar::after {
+    background-position: center bottom;
+    background-repeat: no-repeat;
+    background-size: 100% 1px;
+    bottom: 0;
+    content: "";
+    height: 1px;
+    left: 0;
+    position: absolute;
+    width: 100%;
+}
+
+.top_menu {
+    overflow-x: scroll;
+    overflow-y: hidden;
+}
+
+.top_menu_list {
+    white-space: nowrap;
+}
+
+.top_menu_list .btn {
+    color: #333;
+    display: inline-block;
+    font-size: 14px;
+    height: 26px;
+    line-height: 26px;
+    margin: 5px 0 5px 0px;
+    padding: 0 5px;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.top_menu_list .btn.cur {
+    color: #d00;
+    font-size: 15px;
+}
+
+#content {
+    /*border: dotted 1px #555;*/
+    padding: 60px 20px 30px 30px;
+}
+
+#content .list {
+    padding: 20px 0 20px;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+#content .list_title h1 {
+    font-size: 20px;
+}
+
+#content .list_summary {
+    color: #333;
+    line-height: 26px;
+}
+
+#content .list_summary .list_img_holder {
+    position: relative;
+    float: left;
+    right: 10px;
+    margin-top: 8px;
+    overflow: hidden;
+    padding-bottom: 20%;
+    width: 30%;
+}
+
+#content .list_summary img {
+    display: block;
+    position: absolute;
+    text-decoration: none;
+    width: 100%;
+    height: auto;
+    margin: 0px 0px 10px 10px;
+}
+
+#content .list_summary label {
+    font-size: 14px;
+    color: #666;
+}
+
+#content .item_content {
+    /*text-indent: 2em;*/
+    color: #5d5d5d;
+    font-size: 18px;
+    line-height: 30px;
+}
+
+#content .item_content img {
+    border-radius: 4px;
+    width: 100%;
+    height: auto;
+}
+
+#sidebar {
+    /*border: dotted 1px #555;*/
+    padding: 80px 20px 30px 20px;
+}
+
+#sidebar .section li {
+    list-style: none;
+    line-height: 24px;
+}
+
+#footer {
+
+    color: #666;
+    text-align: center;
+    line-height: 26px;
+}
+
+#footer a {
+    color: #666;
+}
+
+@media screen and (max-width: 2560px) {
+    #wrapper {
+        width: 1000px;
+    }
+
+    #sidebar {
+        float: right;
+        width: 25%;
+    }
+
+    #content {
+        float: left;
+        width: 65%;
+    }
+}
+
+/*@media screen and (max-width: 1600px) {*/
+/*#wrapper {*/
+/*width: 1000px;*/
+/*}*/
+
+/*#sidebar {*/
+/*float: right;*/
+/*width: 25%;*/
+/*}*/
+
+/*#content {*/
+/*float: left;*/
+/*width: 60%;*/
+/*}*/
+/*}*/
+
+/*@media screen and (max-width: 1000px) {*/
+/*#wrapper {*/
+/*width: 100%;*/
+/*}*/
+
+/*#sidebar {*/
+/*float: right;*/
+/*width: 25%;*/
+/*}*/
+
+/*#content {*/
+/*float: left;*/
+/*width: 60%;*/
+/*}*/
+/*}*/
+
+@media screen and (max-width: 768px) {
+    #wrapper {
+        width: 100%;
+    }
+
+    #sidebar {
+        display: none;
+    }
+
+    #content {
+        float: none;
+        width: auto;
+    }
+
+    #item_share {
+        display: none;
+    }
+
+    #content {
+        padding: 60px 8px 30px 8px;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    #wrapper {
+        width: 100%;
+    }
+
+    #sidebar {
+        display: none;
+    }
+
+    #content {
+        float: none;
+        width: auto;
+    }
+
+    #item_share {
+        display: none;
+    }
+
+}
+

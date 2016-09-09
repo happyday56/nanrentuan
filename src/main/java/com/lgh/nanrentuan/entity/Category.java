@@ -27,6 +27,11 @@ public class Category {
     @Column(length = 20)
     private String name;
     /**
+     * 父项
+     */
+    @ManyToOne(cascade = {CascadeType.REFRESH}, fetch = FetchType.LAZY)
+    private Category parent;
+    /**
      * 分类路径，如孕早期（yzq）
      * 根据标题首字母生产
      */

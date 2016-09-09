@@ -1,0 +1,305 @@
+﻿html, body, div, p, ul, ol, li, dl, dt, dd, strong, em, span, table, th, td, tbody, thead, a, img, h1, h2, h3, h4, h5
+{
+    padding: 0px;
+    margin: 0px;
+    list-style: none;
+    font-style: normal;
+}
+
+body
+{
+    font-size: 12px;
+    font-weight: normal;
+    font-family: "微软雅黑";
+    line-height: 24px;
+    color: #333333;
+}
+
+img
+{
+    border: 0px;
+    line-height: 0px;
+}
+
+a
+{
+    color: #333333;
+    text-decoration: none;
+}
+
+    a:hover
+    {
+        color: #cc0000;
+        text-decoration: underline;
+    }
+
+.clear
+{
+    clear: both;
+    height: 0px;
+    line-height: 0px;
+    font-size: 0px;
+}
+
+
+
+
+
+
+
+#Search
+{
+    border: solid 1px #dadada;
+    border-bottom: 0px;
+    line-height: 40px;
+    overflow: auto;
+    padding-left: 6px;
+    padding-right: 6px;
+}
+
+    #Search input, #Search select, #Search a, #Search label
+    {
+        margin-left: 2px;
+        margin-right: 2px;
+        vertical-align: middle;
+    }
+
+        #Search input.txt
+        {
+            background: none repeat scroll 0 0 #fff;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            color: #000;
+            height: 18px;
+            line-height: 1.5;
+            outline: medium none;
+            padding: 3px 7px;
+            transition: all 0.3s ease 0s;
+        }
+
+            #Search input.txt:focus
+            {
+                background: none repeat scroll 0 0 #e9fbfe;
+                border-color: #69c5dd;
+            }
+
+.button1
+{
+    border: 0 none;
+    cursor: pointer;
+    color: #000000;
+    height: 27px;
+    width: 45px;
+    text-shadow: 1px 1px 0 #fff;
+    border: 0 none;
+    background: url("../images/button1.png");
+    line-height: 27px;
+    text-align: center;
+    font-family: "微软雅黑";
+}
+
+    .button1:hover
+    {
+        color: #00a1ca;
+    }
+
+/* 列表部分*/
+#ListTable
+{
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 2px;
+    border: solid 1px #dadada;
+    background: url(../images/table-top-bg.png) repeat-x;
+}
+
+    #ListTable th
+    {
+        line-height: 35px;
+        text-align: left;
+        padding-left: 6px;
+        padding-right: 6px;
+        border-bottom: solid 1px #dadada;
+        font-weight: normal;
+    }
+
+    #ListTable td
+    {
+        line-height: 25px;
+        word-wrap: break-word;
+        word-break: break-all;
+        padding-left: 6px;
+        padding-right: 6px;
+        background: #f7f9fb;
+    }
+
+        #ListTable td.aleft
+        {
+            text-align: left;
+        }
+
+        #ListTable td a
+        {
+            color: #004285;
+        }
+
+            #ListTable td a:hover
+            {
+                color: #CC0022;
+            }
+
+        #ListTable td input.txt
+        {
+            line-height: 20px;
+            height: 20px;
+            padding-left: 4px;
+            padding-right: 4px;
+            border: solid 1px #bfc6cc;
+        }
+
+#mainbox
+{
+    background: url("../images/topg-bg.png") repeat-x scroll 0 0 rgba(0, 0, 0, 0);
+    border: 1px solid #e0e0e0;
+    border-radius: 3px;
+    padding: 10px 15px;
+    overflow: auto;
+}
+
+    #mainbox .title
+    {
+        border-bottom: 1px solid #e0e0e0;
+        color: #333;
+        font-size: 14px;
+        margin: 0 0 5px;
+        padding: 0 0 10px;
+    }
+
+    #mainbox em
+    {
+        color:#cc0000;
+    }
+
+#ListTableE
+{
+    width: 100%;
+    border-collapse: collapse;
+}
+
+    #ListTableE th
+    {
+        color: #666;
+        vertical-align: top;
+        padding: 4px;
+        font-family: "微软雅黑";
+        text-align: right;
+        font-weight: normal;
+        padding-right: 25px;
+    }
+
+    #ListTableE td
+    {
+        line-height: 16px;
+        padding: 4px;
+        word-wrap: break-word;
+        word-break: break-all;
+        font-family: "微软雅黑";
+    }
+
+        #ListTableE td input
+        {
+            vertical-align: middle;
+        }
+
+            #ListTableE td input.txt, #ListTableE td textarea.txt
+            {
+                background: none repeat scroll 0 0 #fff;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                color: #000;
+                height: 18px;
+                line-height: 1.5;
+                outline: medium none;
+                padding: 3px 7px;
+                transition: all 0.3s ease 0s;
+                color: #666;
+                width: 300px;
+            }
+
+
+
+                #ListTableE td input.txt:focus, #ListTableE td textarea.txt:focus
+                {
+                    background: none repeat scroll 0 0 #e9fbfe;
+                    border-color: #69c5dd;
+                }
+
+.button2
+{
+    background: none repeat scroll 0 0 #00a2ca;
+    border: 1px solid #00a2ca;
+    border-radius: 4px;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 14px;
+    height: 36px;
+    line-height: 32px;
+    min-width: 200px;
+    outline: medium none;
+    padding: 0 30px 1px;
+    text-align: center;
+}
+
+.left
+{
+    display: inline;
+    float: left;
+}
+
+ul.pagination
+{
+    float: right;
+    font-size: 12px;
+    clear: both;
+}
+
+    ul.pagination li
+    {
+        float: left;
+        padding-right: 5px;
+    }
+
+        ul.pagination li a
+        {
+            padding: 3px 3px;
+            border: 1px solid #ccc;
+            text-decoration: none;
+            display: block;
+            background: #fff url(../images/bg_fade_up.png) repeat-x bottom;
+            min-width: 20px;
+            text-align: center;
+        }
+
+        ul.pagination li.page a
+        {
+            color: #cc0000;
+            font-weight: normal;
+        }
+
+            ul.pagination li.page a:hover
+            {
+                color: #fff;
+            }
+
+        ul.pagination li.text a
+        {
+            border: none;
+            text-decoration: underline;
+            padding: 0 5px 0 0;
+        }
+
+        ul.pagination li.text
+        {
+            line-height: 2em;
+        }

@@ -1,0 +1,22 @@
+.pagebar {
+    clear: both;
+    color: #666;
+    line-height: 40px;
+    word-spacing: 0.5em;
+    text-align: center;
+}
+
+.pagebar a {
+    padding: 4px 2px;
+    text-decoration: none;
+}
+
+.pagebar .cur {
+    /*background: url(../images/page.png) no-repeat 0px 6px;*/
+    color: #fff;
+    font-weight: bold;
+    padding: 4px 6px 4px 6px;
+    background-color: #FF0000;
+    border-radius: 4px;
+}
+
