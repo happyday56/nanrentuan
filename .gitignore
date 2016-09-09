@@ -12,5 +12,3 @@ target/
 *.eml
 
 *.log
-platform.log*
-iqiyi.log*
