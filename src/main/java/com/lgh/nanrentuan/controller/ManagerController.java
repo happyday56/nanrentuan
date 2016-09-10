@@ -36,28 +36,24 @@ public class ManagerController {
     private EntityManager entityManager;
 
     @RequestMapping("/main")
-    public ModelAndView main(HttpServletRequest request) {
-        ModelAndView view = new ModelAndView("manager/main");
-
-        return view;
+    public String main(HttpServletRequest request) {
+        return "manager/main";
     }
 
     @RequestMapping("/articlelist")
-    public ModelAndView articlelist(HttpServletRequest request) {
-        ModelAndView view = new ModelAndView("manager/articlelist");
-        return view;
+    public String articlelist(HttpServletRequest request) {
+        return "manager/articlelist";
     }
 
 
     @RequestMapping("/articlelist.do")
-    public
     @ResponseBody
-    PageListModel articlelistdo(@RequestBody AdminArticleListRequest data) {
+    public PageListModel articlelistdo(@RequestBody AdminArticleListRequest data) {
 
         PageListModel result = new PageListModel();
 
         StringBuilder hql = new StringBuilder();
-        hql.append("select a from Article ");
+        hql.append("select a from Article a");
         if (!StringUtils.isEmpty(data.getKey())) hql.append(" where a.title like :title");
 
         hql.append(" order by a.id desc");
