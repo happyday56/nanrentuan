@@ -1,113 +1,55 @@
 package com.lgh.nanrentuan.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Created by Administrator on 2016/8/2.
+ */
+
+@Getter
+@Setter
 public class Paging {
-	/**
-	 * 开始
-	 */
-	private int begin;
-	/**
-	 * 结束
-	 */
-	private int end;
-	/**
-	 * 当前页码
-	 */
-	private int current;
-	/**
-	 * 总页码
-	 */
-	private int total;
-	/**
-	 * 每页记录数
-	 */
-	private int length;
-	/**
-	 * 总记录数
-	 */
-	private long count;
 
-	/**
-	 * 开始
-	 */
-	public int getBegin() {
-		return begin;
-	}
+    /**
+     * page index
+     */
+    private Integer pageNumber;
 
-	/**
-	 * 开始
-	 */
-	public void setBegin(int begin) {
-		this.begin = begin;
-	}
+    /**
+     * page size
+     */
+    private Integer pageSize;
 
-	/**
-	 * 结束
-	 */
-	public int getEnd() {
-		return end;
-	}
+    /**
+     * 总条数
+     */
+    private Long totalCount;
 
-	/**
-	 * 结束
-	 */
-	public void setEnd(int end) {
-		this.end = end;
-	}
+    /**
+     * 总页数
+     */
+    private Integer totalPage;
 
-	/**
-	 * 当前页码
-	 */
-	public int getCurrent() {
-		return current;
-	}
+    /**
+     * page url
+     * {number} replace
+     */
+    private String url;
 
-	/**
-	 * 当前页码
-	 */
-	public void setCurrent(int current) {
-		this.current = current;
-	}
+    private List<Integer> pages;
 
-	/**
-	 * 总页码
-	 */
-	public int getTotal() {
-		return total;
-	}
-
-	/**
-	 * 总页码
-	 */
-	public void setTotal(int total) {
-		this.total = total;
-	}
-
-	/**
-	 * 总页码
-	 */
-	public int getLength() {
-		return length;
-	}
-
-	/**
-	 * 总页码
-	 */
-	public void setLength(int length) {
-		this.length = length;
-	}
-
-	/**
-	 * 总记录数
-	 */
-	public long getCount() {
-		return count;
-	}
-
-	/**
-	 * 总记录数
-	 */
-	public void setCount(long count) {
-		this.count = count;
-	}
-
+    public List<Integer> getPages() {
+        List<Integer> result = new ArrayList<>();
+        Integer current = pageNumber - 3;
+        while (current <= pageNumber + 3) {
+            if (current >= 0 && current < totalPage)
+                result.add(current);
+            current++;
+        }
+        return result;
+    }
 }

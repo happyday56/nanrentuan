@@ -78,7 +78,7 @@ public class ManagerController {
         result.setList(list);
 
 
-        Paging page = new Paging();
+        PagingModel page = new PagingModel();
         page.setCurrent(data.getCurrent());
         page.setLength(data.getLength());
         page.setCount(resultList.size());

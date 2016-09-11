@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${page.title}"></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui"/>
+    <meta name="keywords" th:content="${page.keywords}"/>
+    <meta name="description" th:content="${page.description}"/>
+    <meta name="author" content=""/>
+    <meta name="copyright" content=""/>
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/style.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/pagebar.css}"/>
+    <script type="text/javascript" th:src="@{/resources/js/jquery1.7.2.js}"></script>
+</head>
+<body>
+<div id="wrapper">
+    <div th:include="fragments/top::top"></div>
+    <div id="content">
+        <th:block th:each="item:${page.list}">
+            <div class="list">
+                <div class="list_title">
+                    <a th:href="*{item.url}" th:title="*{item.title }"><h1 th:text="*{item.title}"></h1></a>
+                </div>
+                <div class="list_summary">
+                    <a th:href="*{item.url}">
+                        <div class="list_img_holder"><img th:src="*{item.pictureUrl}"/></div>
+                        <label th:text="*{item.time }"></label>
+                        <th:block th:text="*{item.summary }"></th:block>
+                    </a>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </th:block>
+        <div class="pagebar">
+            ${page.pagebar}
+        </div>
+    </div>
+    <div th:include="fragments/right::right"></div>
+    <div th:include="fragments/bot::bot"></div>
+</div>
+</body>
+</html>
