@@ -5,6 +5,7 @@ import com.lgh.nanrentuan.repository.ArticleRepository;
 import com.lgh.nanrentuan.repository.CategoryRepository;
 import com.lgh.nanrentuan.entity.Article;
 import com.lgh.nanrentuan.model.*;
+import com.lgh.nanrentuan.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
@@ -34,6 +35,9 @@ public class ManagerController {
 
     @Autowired
     private EntityManager entityManager;
+
+    @Autowired
+    private CategoryService categoryService;
 
     @RequestMapping("/main")
     public String main(HttpServletRequest request) {
@@ -99,7 +103,7 @@ public class ManagerController {
     Object articleeditdo(Long id) {
 
         if (id == null) {
-            return categoryRepository.findAll();
+            return categoryService.getlist();
         } else {
             AdminArticleEditRequest result = new AdminArticleEditRequest();
             Article article = articleRepository.findOne(id);
@@ -116,7 +120,7 @@ public class ManagerController {
                 result.setViews(article.getViews());
 
                 result.setPictureUrl(article.getPictureUrl());
-                result.setCategories(categoryRepository.findAll());
+                result.setCategories(categoryService.getlist());
             }
             return result;
         }

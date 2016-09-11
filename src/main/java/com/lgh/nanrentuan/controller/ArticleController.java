@@ -1,14 +1,18 @@
 package com.lgh.nanrentuan.controller;
 
 import com.lgh.nanrentuan.entity.Article;
+import com.lgh.nanrentuan.model.WebIndexPageModel;
 import com.lgh.nanrentuan.repository.ArticleRepository;
 import com.lgh.nanrentuan.repository.CategoryRepository;
+import com.lgh.nanrentuan.service.ArticleService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * Created by Administrator on 2016/9/9.
@@ -21,8 +25,7 @@ public class ArticleController {
     private ArticleRepository articleRepository;
 
     @Autowired
-    private CategoryRepository categoryRepository;
-
+    private ArticleService articleService;
 
     @RequestMapping("/")
     public String index(Model model) {
@@ -31,7 +34,13 @@ public class ArticleController {
 
     @RequestMapping(value = "/{page}")
     public String index(@PathVariable("page") Integer page, Model model) {
-        
+        WebIndexPageModel webIndexPageModel = new WebIndexPageModel();
+        webIndexPageModel.setTitle("男人团，找福利，谋福利，快乐多多，幸福多多");
+        webIndexPageModel.setKeywords("");//todo
+        webIndexPageModel.setDescription("");
+
+        webIndexPageModel.setList(articleService.getIndexArticlelist(page, 10));
+        model.addAttribute("page", webIndexPageModel);
         return "index";
     }
 

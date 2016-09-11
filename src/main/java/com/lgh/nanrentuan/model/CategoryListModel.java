@@ -1,0 +1,16 @@
+package com.lgh.nanrentuan.model;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+
+/**
+ * Created by Administrator on 2016/9/11.
+ */
+@Getter
+@Setter
+@AllArgsConstructor
+public class CategoryListModel {
+    private Long id;
+    private String name;
+}

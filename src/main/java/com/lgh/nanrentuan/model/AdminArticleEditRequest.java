@@ -14,14 +14,10 @@ import java.util.List;
 @Getter
 @Setter
 public class AdminArticleEditRequest {
-
-
     private Long id;
-
 
     private String title;
     private String content;
-
 
     private String summary;
     private String keywords;
@@ -30,12 +26,8 @@ public class AdminArticleEditRequest {
     private Long views;
 
     private Long categoryId;
-
     private String pictureUrl;
-
-
     private String operType;
-    private List<Category> categories;
 
-
+    private List<CategoryListModel> categories;
 }

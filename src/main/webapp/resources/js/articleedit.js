@@ -4,7 +4,7 @@ var model = {};
 
 $(function () {
     if (oper == "edit") {
-        J.AjaxJsonPost("blogedit.do?id=" + id, "",
+        J.AjaxJsonPost("articleedit.do?id=" + id, "",
             function (data) {
                 $("#id").html(data.id);
                 $("#title").val(data.title);
@@ -55,7 +55,7 @@ $(function () {
 function initCategory(list, id) {
     var html = "";
     for (var i = 0; i < list.length; i++) {
-        html += '<option value="' + list[i].id + '" ' + (id == list[i].id ? 'selected="selected"' : '') + '>' + list[i].title + '</option>';
+        html += '<option value="' + list[i].id + '" ' + (id == list[i].id ? 'selected="selected"' : '') + '>' + list[i].name + '</option>';
     }
     $("#category").html(html);
 }
