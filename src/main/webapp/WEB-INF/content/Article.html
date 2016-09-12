@@ -5,8 +5,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui"/>
-    <meta name="keywords" content=""/>
-    <meta name="description" content=""/>
+    <meta name="keywords" th:content="${page.keywords}"/>
+    <meta name="description" th:content="${page.description}"/>
     <meta name="author" content=""/>
     <meta name="copyright" content=""/>
     <link rel="stylesheet" type="text/css" th:href="@{/resources/css/style.css}"/>
@@ -18,19 +18,19 @@
     <div th:include="fragments/top::top"></div>
     <div id="content">
         <div style="margin-top: 10px; padding-bottom: 20px;">
-            当前位置：<a href="/">首页</a> &raquo; <a th:href="${page.navurl}" th:text="${page.navTitle}"></a>
+            当前位置：<a href="/">首页</a> &raquo; <a th:href="${page.navUrl}" th:text="${page.navTitle}"></a>
         </div>
         <div class="item">
             <div class="item_title">
-                <h1>${page.title }</h1>
-                <p th:text="${page.uploadTime}"></p>
+                <h1>${page.data.title }</h1>
+                <p th:text="${page.data.uploadTime}"></p>
             </div>
-            <div class="item_content">${page.content}</div>
+            <div class="item_content">${page.data.content}</div>
         </div>
     </div>
     <div th:include="fragments/right::right"></div>
     <div th:include="fragments/bot::bot"></div>
-    <script th:src="${'/viewcount?id=' + page.id}"></script>
+    <script th:src="${'/viewcount?id=' + page.data.id}"></script>
 </div>
 </body>
 </html>

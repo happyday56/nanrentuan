@@ -15,7 +15,7 @@ import java.util.List;
 public class Paging {
 
     /**
-     * page index
+     * page index from 0
      */
     private Integer pageNumber;
 
@@ -40,6 +40,9 @@ public class Paging {
      */
     private String url;
 
+    /**
+     * 当前页数集合
+     */
     private List<Integer> pages;
 
     public List<Integer> getPages() {

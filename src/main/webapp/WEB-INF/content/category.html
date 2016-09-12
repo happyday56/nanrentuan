@@ -5,8 +5,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui"/>
-    <meta name="keywords" content=""/>
-    <meta name="description" content=""/>
+    <meta name="keywords" th:content="${page.keywords}"/>
+    <meta name="description" th:content="${page.description}"/>
     <meta name="author" content=""/>
     <meta name="copyright" content=""/>
     <link rel="stylesheet" type="text/css" th:href="@{/resources/css/style.css}"/>
@@ -18,7 +18,7 @@
     <div th:include="fragments/top::top"></div>
     <div id="content">
         <div style="margin-top: 10px;">
-            当前位置：<a href="/">首页</a> &raquo; <a th:href="${page.navurl}" th:text="${page.navTitle}"></a>
+            当前位置：<a href="/">首页</a> &raquo; <a th:href="${page.navUrl}" th:text="${page.navTitle}"></a>
         </div>
         <th:block th:each="item:${page.list}">
             <div class="list">
@@ -28,13 +28,36 @@
                 <div class="list_summary">
                     <a th:href="${item.url}">
                         <div class="list_img_holder"><img th:src="${item.pictureUrl}"/></div>
-                        <label th:text="${item.uploadTime }"></label>
+                        <label th:text="${item.time }"></label>
                         <th:block th:text="${item.summary }"></th:block>
                     </a></div>
                 <div class="clear"></div>
             </div>
         </th:block>
-        <div class="pagebar" th:text="${page.pagebar}"></div>
+        <div id="pages" class="page">
+            <a target="_self" th:if="${page.paging.pageNumber} &gt; 0"
+               th:href="${#strings.replace(page.paging.url,'[number]',#strings.toString(page.paging.pageNumber-1))}"
+               class="prev">上一页</a>
+            <a th:if="${ page.paging.pageNumber} &gt; 3" th:href="${#strings.replace(page.paging.url,'[number]','0')}"
+               target="_self">1</a>
+            <th:block th:if="${page.paging.pageNumber} &gt; 3">...</th:block>
+
+            <th:block th:each="item:${page.paging.pages}">
+                <a th:if="${item != page.paging.pageNumber}"
+                   th:href="${#strings.replace(page.paging.url,'[number]',#strings.toString(item))}"
+                   target="_self" th:text="${item+1}"></a>
+                <span th:if="${item==page.paging.pageNumber}" th:text="${item+1}"></span>
+            </th:block>
+
+            <th:block th:if="${page.paging.pageNumber+3} &lt; ${page.paging.totalPage}"> ...</th:block>
+            <a th:if="${page.paging.pageNumber+3} &lt; ${page.paging.totalPage}"
+               th:href="${#strings.replace(page.paging.url,'[number]',#strings.toString(page.paging.pageNumber + 4))}"
+               target="_self" th:text="${page.paging.pageNumber + 5}"></a>
+
+            <a target="_self" th:if="${page.paging.pageNumber + 1} &lt; ${page.paging.totalPage}"
+               th:href="${#strings.replace(page.paging.url,'[number]',#strings.toString(page.paging.pageNumber+1))}"
+               class="next">下一页</a>
+        </div>
     </div>
     <div th:include="fragments/right::right"></div>
     <div th:include="fragments/bot::bot"></div>

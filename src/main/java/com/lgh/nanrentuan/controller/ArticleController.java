@@ -1,18 +1,15 @@
 package com.lgh.nanrentuan.controller;
 
 import com.lgh.nanrentuan.entity.Article;
-import com.lgh.nanrentuan.model.WebIndexPageModel;
 import com.lgh.nanrentuan.repository.ArticleRepository;
-import com.lgh.nanrentuan.repository.CategoryRepository;
 import com.lgh.nanrentuan.service.ArticleService;
+import com.lgh.nanrentuan.service.URIService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 /**
  * Created by Administrator on 2016/9/9.
@@ -27,6 +24,9 @@ public class ArticleController {
     @Autowired
     private ArticleService articleService;
 
+    @Autowired
+    private URIService uriService;
+
     @RequestMapping("/")
     public String index(Model model) {
         return index(0, model);
@@ -34,25 +34,18 @@ public class ArticleController {
 
     @RequestMapping(value = "/{page}")
     public String index(@PathVariable("page") Integer page, Model model) {
-        WebIndexPageModel webIndexPageModel = new WebIndexPageModel();
-        webIndexPageModel.setTitle("男人团，找福利，谋福利，快乐多多，幸福多多");
-        webIndexPageModel.setKeywords("");//todo
-        webIndexPageModel.setDescription("");
-
-        webIndexPageModel.setList(articleService.getIndexArticlelist(page, 10));
-        model.addAttribute("page", webIndexPageModel);
+        model.addAttribute("page", articleService.getIndex(page, 10));
         return "index";
     }
 
-    @RequestMapping("/{one}")
-    public String category(@PathVariable(value = "one") String one, Model model) {
-
-        return "category";
+    @RequestMapping("/{path}")
+    public String category(@PathVariable(value = "path") String path, Model model) {
+        return category(path, 0, model);
     }
 
-    @RequestMapping("/{one}/{two}")
-    public String category(@PathVariable(value = "one") String one, @PathVariable(value = "two") String two, Model model) {
-
+    @RequestMapping("/{path}/{page}")
+    public String category(@PathVariable(value = "path") String path, @PathVariable(value = "page") Integer page, Model model) {
+        model.addAttribute("page", articleService.getCategory(path, page, 10));
         return "category";
     }
 
