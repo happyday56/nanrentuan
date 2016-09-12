@@ -1,5 +1,6 @@
 package com.lgh.nanrentuan.service;
 
+import com.lgh.nanrentuan.model.AdminCategoryListModel;
 import com.lgh.nanrentuan.model.CategoryListModel;
 
 import java.util.List;
@@ -9,4 +10,6 @@ import java.util.List;
  */
 public interface CategoryService {
     List<CategoryListModel> getlist();
+
+    List<AdminCategoryListModel> getAdminCategoryList();
 }

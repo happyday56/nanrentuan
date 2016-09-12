@@ -10,7 +10,7 @@ import org.springframework.util.StringUtils;
 @Service
 public class URIServiceImpl implements URIService {
     public String getCategoryURI(String one) {
-        return getCategoryURI(one, null);
+        return "/" + one;
     }
 
     public String getCategoryURI(String one, String two) {
@@ -18,7 +18,7 @@ public class URIServiceImpl implements URIService {
             if (StringUtils.isEmpty(two)) {
                 return "/" + one;
             } else {
-                return "/d/" + one + "/" + two;
+                return "/" + two;
             }
         }
         return "/";

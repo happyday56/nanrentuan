@@ -4,11 +4,10 @@ $(function () {
 
 var page = {};
 page.list = function () {
-    $.get("category/list", "", function (data) {
-        var list = data.list;
+    $.get("categorylist.do", "", function (data) {
         var html = "";
-        for (var i = 0; i < list.length; i++) {
-            var row = list[i];
+        for (var i = 0; i < data.length; i++) {
+            var row = data[i];
             html += '<tr><td>' + row.id + '</td>';
             html += '<td><a href="' + row.url + '" target="_blank">' + row.name + '</a></td>';
             html += '<td>' + row.parentName + '</td>';

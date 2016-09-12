@@ -13,7 +13,6 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.imageio.ImageIO;
 import javax.persistence.EntityManager;
@@ -62,9 +61,9 @@ public class ManagerController {
         return "manager/articleedit";
     }
 
-    @RequestMapping("/category/list")
+    @RequestMapping("/categorylist")
     public String categoryList() {
-        return "manager/categorylist";
+        return "manager/category_list";
     }
 
 
@@ -174,6 +173,12 @@ public class ManagerController {
         return 1;
     }
 
+
+    @RequestMapping("/categorylist.do")
+    @ResponseBody
+    public List<AdminCategoryListModel> categoryListDo() {
+        return categoryService.getAdminCategoryList();
+    }
 
     /**
      * 富文本图片上传
