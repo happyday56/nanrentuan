@@ -10,17 +10,16 @@ import com.lgh.nanrentuan.service.resource.StaticResourceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.imageio.ImageIO;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
@@ -56,6 +55,16 @@ public class ManagerController {
     @RequestMapping("/articlelist")
     public String articlelist(HttpServletRequest request) {
         return "manager/articlelist";
+    }
+
+    @RequestMapping("/articleedit")
+    public String articleedit(HttpServletRequest request) {
+        return "manager/articleedit";
+    }
+
+    @RequestMapping("/category/list")
+    public String categoryList() {
+        return "manager/categorylist";
     }
 
 
@@ -100,11 +109,6 @@ public class ManagerController {
         return result;
     }
 
-    @RequestMapping("/articleedit")
-    public ModelAndView articleedit(HttpServletRequest request) {
-        ModelAndView view = new ModelAndView("manager/articleedit");
-        return view;
-    }
 
     @RequestMapping("/articleedit.do")
     public
@@ -180,12 +184,12 @@ public class ManagerController {
      */
     @RequestMapping(value = "/uploadUeImage", method = RequestMethod.POST)
     @ResponseBody
-    public UploadUeImageModel fileUploadUeImage(MultipartHttpServletRequest request) throws Exception {
-        UploadUeImageModel result = new UploadUeImageModel();
+    public UploadImageModel fileUploadUeImage(MultipartHttpServletRequest request) throws Exception {
+        UploadImageModel result = new UploadImageModel();
         MultipartFile file = request.getFile("imgFile");
 
         String fileExt = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1).toLowerCase();
-        String fileName = StaticResourceService.article + UUID.randomUUID().toString() + "." + fileExt;
+        String fileName = StaticResourceService.article + "/" + UUID.randomUUID().toString() + "." + fileExt;
 
         URI uri = staticResourceService.uploadResource(fileName, file.getInputStream());
         result.setCode(1);
@@ -193,6 +197,55 @@ public class ManagerController {
         result.setMessage("上传成功!");
         result.setUrl(uri.toString());
         return result;
+    }
+
+    private static final String[] PIC_EXT = {"BMP", "JPG", "JPEG", "PNG", "GIF"};
+
+    @RequestMapping(value = "/UploadAticleImage")
+    @ResponseBody
+    public UploadImageModel UploadAticleImage(@RequestParam(value = "fileImage") MultipartFile shareImage
+            , HttpServletResponse response) throws Exception {
+        UploadImageModel resultModel = new UploadImageModel();
+
+        //文件格式判断
+        if (ImageIO.read(shareImage.getInputStream()) == null) {
+            resultModel.setCode(0);
+            resultModel.setMessage("请上传图片文件！");
+            return resultModel;
+        }
+
+        if (shareImage.getSize() == 0) {
+            resultModel.setCode(0);
+            resultModel.setMessage("请上传图片！");
+            return resultModel;
+        }
+
+        //获取图片后缀名
+        String fileName = shareImage.getOriginalFilename();
+        String ext = fileName.substring(fileName.lastIndexOf(".") + 1).toUpperCase();
+        Boolean flag = false;
+
+        for (String s : PIC_EXT) {
+            if (ext.equals(s)) {
+                flag = true;
+                break;
+            }
+        }
+
+        if (!flag) {
+            resultModel.setCode(0);
+            resultModel.setMessage("文件后缀名非图片后缀名");
+            return resultModel;
+        }
+
+        //保存图片
+        fileName = StaticResourceService.article + "/" + UUID.randomUUID().toString() + "." + ext.toLowerCase();
+        URI uri = staticResourceService.uploadResource(fileName, shareImage.getInputStream());
+        response.setHeader("X-frame-Options", "SAMEORIGIN");
+        resultModel.setCode(1);
+        resultModel.setMessage(fileName);
+        resultModel.setUrl(uri.toString());
+        return resultModel;
     }
 
 }

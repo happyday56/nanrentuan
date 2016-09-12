@@ -32,7 +32,7 @@ public class ArticleController {
         return index(0, model);
     }
 
-    @RequestMapping(value = "/{page}")
+    @RequestMapping(value = "/index/{page}")
     public String index(@PathVariable("page") Integer page, Model model) {
         model.addAttribute("page", articleService.getIndex(page, 10));
         return "index";

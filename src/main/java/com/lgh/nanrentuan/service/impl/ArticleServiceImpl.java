@@ -7,6 +7,7 @@ import com.lgh.nanrentuan.repository.ArticleRepository;
 import com.lgh.nanrentuan.repository.CategoryRepository;
 import com.lgh.nanrentuan.service.ArticleService;
 import com.lgh.nanrentuan.service.URIService;
+import com.lgh.nanrentuan.service.resource.StaticResourceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -15,6 +16,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,6 +36,9 @@ public class ArticleServiceImpl implements ArticleService {
     private URIService uriService;
 
     @Autowired
+    private StaticResourceService staticResourceService;
+
+    @Autowired
     private EntityManager entityManager;
 
     public WebIndexPageModel getIndex(Integer pageNo, Integer pageSize) {
@@ -42,7 +47,7 @@ public class ArticleServiceImpl implements ArticleService {
         webIndexPageModel.setKeywords("");//todo
         webIndexPageModel.setDescription("");
 
-        Pageable pageable = new PageRequest(pageNo - 1, pageSize, new Sort(Sort.Direction.ASC, "id"));
+        Pageable pageable = new PageRequest(pageNo, pageSize, new Sort(Sort.Direction.ASC, "id"));
         Page<Article> articles = articleRepository.findAll(pageable);
         webIndexPageModel.setList(convertArticleList(articles.getContent()));
 
@@ -51,8 +56,7 @@ public class ArticleServiceImpl implements ArticleService {
         paging.setPageNumber(pageNo);
         paging.setTotalCount(articles.getTotalElements());
         paging.setTotalPage(articles.getTotalPages());
-        String url = "";
-        paging.setUrl(url + "/index_[number].html");
+        paging.setUrl("/index/[number]");
         paging.setPages(paging.getPages());
         webIndexPageModel.setPaging(paging);
 
@@ -69,7 +73,7 @@ public class ArticleServiceImpl implements ArticleService {
         webCategoryPageModel.setNavUrl("");
 
         Category category = categoryRepository.findByPath(path);
-        Pageable pageable = new PageRequest(pageNo - 1, pageSize, new Sort(Sort.Direction.ASC, "id"));
+        Pageable pageable = new PageRequest(pageNo, pageSize, new Sort(Sort.Direction.ASC, "id"));
         Page<Article> articles = articleRepository.findAllByCategory(category, pageable);
         webCategoryPageModel.setList(convertArticleList(articles.getContent()));
 
@@ -78,8 +82,8 @@ public class ArticleServiceImpl implements ArticleService {
         paging.setPageNumber(pageNo);
         paging.setTotalCount(articles.getTotalElements());
         paging.setTotalPage(articles.getTotalPages());
-        String url = "";
-        paging.setUrl(url + "/index_[number].html");
+
+        paging.setUrl("/" + path + "/[number]");
         paging.setPages(paging.getPages());
         webCategoryPageModel.setPaging(paging);
 
@@ -92,7 +96,7 @@ public class ArticleServiceImpl implements ArticleService {
             WebArticleListModel webArticleListModel = new WebArticleListModel();
             webArticleListModel.setId(x.getId());
             webArticleListModel.setTitle(x.getTitle());
-            webArticleListModel.setPictureUrl(x.getPictureUrl());//todo
+            webArticleListModel.setPictureUrl(getPictureUrl(x.getPictureUrl()));
             webArticleListModel.setSummary(x.getSummary());
             webArticleListModel.setTime(x.getUploadTime());
             webArticleListModel.setUrl(uriService.getArticleURI(x.getId()));
@@ -125,4 +129,16 @@ public class ArticleServiceImpl implements ArticleService {
         }
         return webArticlePageModel;
     }
+
+
+    public String getPictureUrl(String path) {
+        try {
+            return staticResourceService.getResource(path).toString();
+        } catch (URISyntaxException e) {
+
+        }
+        return "";
+    }
+
+
 }

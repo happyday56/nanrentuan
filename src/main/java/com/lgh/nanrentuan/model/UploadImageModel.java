@@ -8,7 +8,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class UploadUeImageModel {
+public class UploadImageModel {
     private int error;
 
     private int code;

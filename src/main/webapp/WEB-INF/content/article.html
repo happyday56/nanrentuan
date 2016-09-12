@@ -22,10 +22,10 @@
         </div>
         <div class="item">
             <div class="item_title">
-                <h1>${page.data.title }</h1>
-                <p th:text="${page.data.uploadTime}"></p>
+                <h1 th:text="${page.data.title}"></h1>
+                <p th:text="${page.data.time}"></p>
             </div>
-            <div class="item_content">${page.data.content}</div>
+            <div class="item_content" th:utext="${page.data.content}"></div>
         </div>
     </div>
     <div th:include="fragments/right::right"></div>

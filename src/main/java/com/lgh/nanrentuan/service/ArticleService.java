@@ -12,13 +12,16 @@ import com.lgh.nanrentuan.model.WebIndexPageModel;
 public interface ArticleService {
     /**
      * 获得首页数据
+     *
      * @param pageNo
      * @param pageSize
      * @return
      */
     WebIndexPageModel getIndex(Integer pageNo, Integer pageSize);
 
-    WebCategoryPageModel getCategory(String path ,Integer pageNo, Integer pageSize);
+    WebCategoryPageModel getCategory(String path, Integer pageNo, Integer pageSize);
 
     WebArticlePageModel getArticle(Long id);
+
+    String getPictureUrl(String path);
 }

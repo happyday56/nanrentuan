@@ -12,20 +12,23 @@
     <script charset="utf-8" th:src="@{/resources/js/kindeditor/lang/zh_CN.js}" type="text/javascript"></script>
 
     <script th:src="@{/resources/js/My97DatePicker/WdatePicker.js}" type="text/javascript"></script>
+    <script type="text/javascript" th:src="@{/resources/js/ajaxfileupload.js}"></script>
 
-    <script  type="text/javascript" th:src="@{/resources/js/articleedit.js}"></script>
+    <script type="text/javascript" th:src="@{/resources/js/articleedit.js}"></script>
+
+
 </head>
 <body>
 
 
-<table width="100%" id="list_table_edit">
+<table width="100%" class="list_table_edit">
     <tr>
         <th>序号</th>
         <td><span id="id"></span></td>
     </tr>
     <tr>
         <th>标题</th>
-        <td><input id="title" type="text" size="100"/></td>
+        <td><input id="title" type="text" style="width:600px"/></td>
     </tr>
     <tr>
         <th>分类</th>
@@ -41,37 +44,38 @@
     </tr>
     <tr>
         <th>摘要</th>
-        <td><input id="summary" type="text" size="100"/></td>
+        <td><input id="summary" type="text" style="width:600px"/></td>
     </tr>
     <tr>
         <th>图片地址</th>
-        <td><img id="imgPictureUrl" src="" alt="" width="200px" height="auto"/>
+        <td>
+            <input id="pictureUrl" type="text" style="width:600px"/>
+            <input type="file" onchange="uploadImage()" name="fileImage" id="fileImage"/>
             <br/>
-            <input id="pictureUrl" type="text" size="100"/>
-
+            <img id="imgPictureUrl" src="" alt="" width="200px" height="auto"/>
         </td>
     </tr>
 
     <tr>
         <th>关键字</th>
-        <td><input id="keywords" type="text" size="100"/></td>
+        <td><input id="keywords" type="text" style="width:600px"/></td>
     </tr>
     <tr>
         <th>描述</th>
-        <td><input id="description" type="text" size="100"/></td>
+        <td><input id="description" type="text" style="width:600px"/></td>
     </tr>
 
     <tr>
         <th>上传时间</th>
-        <td><input id="uploadTime" type="text" size="100"
+        <td><input id="uploadTime" type="text" style="width:600px"
                    onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false,readOnly:true})"/></td>
     </tr>
     <tr>
         <th>浏览次数</th>
-        <td><input id="views" type="text" size="100"/></td>
+        <td><input id="views" type="text" style="width:600px"/></td>
     </tr>
     <tr>
-        <td colspan="2">
+        <td colspan="2" style="text-align: center">
             <input type="button" id="btnSave" value="保存"/>
 
         </td>
@@ -84,19 +88,41 @@
         window.editor = K.create('#content', {
             width: '700px'
             , height: '200px'
-            , uploadJson: 'uploadUeImage'
+            , uploadJson: '../man/uploadUeImage'
             , items: [
                 'source', 'undo', 'redo', '|', 'preview', 'cut', 'copy', 'paste',
                 'plainpaste', 'wordpaste', '|', 'justifyleft', 'justifycenter', 'justifyright',
                 'justifyfull', 'insertorderedlist', 'insertunorderedlist', 'indent', 'outdent', 'subscript',
                 'superscript', 'clearhtml', 'quickformat', 'selectall', '|', 'fullscreen', '/',
                 'formatblock', 'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold',
-                'italic', 'underline', 'strikethrough', 'lineheight', 'removeformat', '|', 'multiimage',
+                'italic', 'underline', 'strikethrough', 'lineheight', 'removeformat', '|', 'image',
                 'table', 'hr', 'emoticons', 'pagebreak',
                 'anchor', 'link', 'unlink'
             ]
         });
     });
+
+
+    //文章图片
+    function uploadImage() {
+        $.ajaxFileUpload({
+            url: '../man/UploadAticleImage',
+            secureuri: false,
+            fileElementId: 'fileImage',
+            dataType: 'json',
+            data: null,
+            success: function (resultModel) {
+                if (resultModel.code == 1) {
+                    $("#imgPictureUrl").attr("src", resultModel.url);
+                    $("#imgPictureUrl").show();
+                    $("#pictureUrl").val(resultModel.message);
+                }
+            },
+            error: function (data, status, e) {
+                $.jBox("上传失败，请检查网络后重试" + e);
+            }
+        });
+    }
 </script>
 </body>
 </html>
