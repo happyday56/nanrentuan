@@ -51,6 +51,7 @@ public class ArticleController {
 
     @RequestMapping("/{id}.html")
     public String article(@PathVariable(value = "id") Long id, Model model) {
+        model.addAttribute("page", articleService.getArticle(id));
         return "article";
     }
 
@@ -64,21 +65,21 @@ public class ArticleController {
             articleRepository.save(blog);
         }
     }
-
-    @RequestMapping(value = "/about")
-    public String about(Model model) {
-        return "about";
-    }
-
-    @RequestMapping(value = "/as")
-    public String as(Model model) {
-        return "as";
-    }
-
-    @RequestMapping(value = "/links")
-    public String links(Model model) {
-        return "links";
-    }
+//
+//    @RequestMapping(value = "/about")
+//    public String about(Model model) {
+//        return "about";
+//    }
+//
+//    @RequestMapping(value = "/as")
+//    public String as(Model model) {
+//        return "as";
+//    }
+//
+//    @RequestMapping(value = "/links")
+//    public String links(Model model) {
+//        return "links";
+//    }
 
     @RequestMapping(value = "/404error")
     public String error(Model model) {

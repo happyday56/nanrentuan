@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui"/>
+    <meta name="keywords"/>
+    <meta name="description"/>
+    <meta name="author" content=""/>
+    <meta name="copyright" content=""/>
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/style.css}"/>
+</head>
+<body>
+<div id="wrapper">
+    <div th:include="fragments/top::top"></div>
+    <div id="content">
+        太空的角落
+    </div>
+    <div th:include="fragments/right::right"></div>
+    <div th:include="fragments/bot::bot"></div>
+</div>
+</body>
+</html>
