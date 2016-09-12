@@ -32,8 +32,8 @@ public class Category {
     @ManyToOne(cascade = {CascadeType.REFRESH}, fetch = FetchType.LAZY)
     private Category parent;
     /**
-     * 分类路径，如孕早期（yzq）
-     * 根据标题首字母生产
+     * 分类路径
+     * 根据标题全拼产生
      */
     @Column(length = 50)
     private String path;

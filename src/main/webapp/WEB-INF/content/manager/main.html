@@ -1,11 +1,12 @@
-<html>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title></title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7"/>
-    <link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/main.css" />"/>
-    <link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/m.css" />"/>
-    <script type="text/javascript" src="<c:url value="/resources/js/jquery1.7.2.js" />"></script>
+    <link rel="stylesheet" type="text/css" th:href="/resources/css/main.css"/>
+    <link rel="stylesheet" type="text/css" href="/resources/css/m.css"/>
+    <script type="text/javascript" th:src="/resources/js/jquery1.7.2.js"></script>
     <script type="text/javascript">
         $(function () {
             $(".left a").click(function () {
@@ -44,7 +45,7 @@
                 <dl>
                     <dt>网站栏目</dt>
                     <dd>
-                        <div><a href="<c:url value="/man/bloglist" />" target="frmRight" class="current">文章</a></div>
+                        <div><a href=" " target="frmRight" class="current">文章</a></div>
 
                     </dd>
                 </dl>
@@ -53,7 +54,7 @@
         </div>
         <div class="right">
             <div class="rightbody">
-                <iframe id="frmRight" name="frmRight" src="<c:url value="/man/bloglist" />" frameborder="0" scrolling="auto"
+                <iframe id="frmRight" name="frmRight" src=" " frameborder="0" scrolling="auto"
                         width="100%" height="100%"></iframe>
             </div>
         </div>

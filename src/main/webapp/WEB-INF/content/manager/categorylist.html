@@ -7,31 +7,21 @@
     <script type="text/javascript" th:src="@{/resources/js/jquery1.7.2.js}"></script>
     <script type="text/javascript" th:src="@{/resources/js/jquery.utils.js}"></script>
     <script type="text/javascript" th:src="@{/resources/js/paging.js}"></script>
-    <script type="text/javascript" th:src="@{/resources/js/articlelist.js}"></script>
+    <script type="text/javascript" th:src="@{/resources/js/categorylist.js}"></script>
 </head>
 <body>
-
-<div class="search">
-    <label class="" for="key">标题</label>
-    <input id="key" name="key" class="txt" type="text" style="width: 125px;" value=""/>
-    <input id="isContentNull" type="checkbox"/>内容为空
-    <input class="button1" type="submit" id="btnSearch" value="搜索"/>
-
-    <a style="float:right;" href="articleedit?oper=add">添加>></a>
+<div id="Search">
+    <a style="float:right;" href="category/add">添加>></a>
 </div>
-
 
 <table width="100%" id="list" class="list_table">
     <thead>
     <tr>
         <th style="width: 80px">序号</th>
-        <th>标题</th>
-        <th>分类</th>
-        <th>图片</th>
-        <th>关键字</th>
-        <th>描述</th>
-        <th>上传时间</th>
-        <th>浏览次数</th>
+        <th>名称</th>
+        <th>父级名称</th>
+        <th>路径</th>
+        <th>排序号</th>
         <th style="width: 50px">操作</th>
     </tr>
     </thead>
@@ -39,10 +29,6 @@
 
     </tbody>
 </table>
-
-<ul class="pagination" style="margin-top: 10px;">
-</ul>
-
 
 </body>
 </html>

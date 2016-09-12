@@ -6,19 +6,25 @@ import com.lgh.nanrentuan.repository.CategoryRepository;
 import com.lgh.nanrentuan.entity.Article;
 import com.lgh.nanrentuan.model.*;
 import com.lgh.nanrentuan.service.CategoryService;
+import com.lgh.nanrentuan.service.resource.StaticResourceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.servlet.http.HttpServletRequest;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by lenovo on 2015/7/14.
@@ -38,6 +44,9 @@ public class ManagerController {
 
     @Autowired
     private CategoryService categoryService;
+
+    @Autowired
+    private StaticResourceService staticResourceService;
 
     @RequestMapping("/main")
     public String main(HttpServletRequest request) {
@@ -159,6 +168,31 @@ public class ManagerController {
         }
 
         return 1;
+    }
+
+
+    /**
+     * 富文本图片上传
+     *
+     * @param request
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "/uploadUeImage", method = RequestMethod.POST)
+    @ResponseBody
+    public UploadUeImageModel fileUploadUeImage(MultipartHttpServletRequest request) throws Exception {
+        UploadUeImageModel result = new UploadUeImageModel();
+        MultipartFile file = request.getFile("imgFile");
+
+        String fileExt = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1).toLowerCase();
+        String fileName = StaticResourceService.article + UUID.randomUUID().toString() + "." + fileExt;
+
+        URI uri = staticResourceService.uploadResource(fileName, file.getInputStream());
+        result.setCode(1);
+        result.setError(0);
+        result.setMessage("上传成功!");
+        result.setUrl(uri.toString());
+        return result;
     }
 
 }
