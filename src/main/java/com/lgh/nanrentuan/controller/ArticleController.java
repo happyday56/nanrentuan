@@ -36,7 +36,9 @@ public class ArticleController {
     public String index(@PathVariable("page") Integer page, Model model) {
         model.addAttribute("page", articleService.getIndex(page, 10));
         return "index";
+//        return test(model);
     }
+
 
     @RequestMapping("/{path}")
     public String category(@PathVariable(value = "path") String path, Model model) {
@@ -86,4 +88,9 @@ public class ArticleController {
         return "404error";
     }
 
+    @RequestMapping(value = "/test")
+    public String test(Model model) {
+        model.addAttribute("page", "i here");
+        return "test";
+    }
 }

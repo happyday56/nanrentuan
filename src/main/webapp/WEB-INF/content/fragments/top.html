@@ -12,8 +12,9 @@
         <div class="top_menu_bar">
             <div id="top_menu" class="top_menu">
                 <div class="top_menu_list">
-                    <a class="btn cur" href="">abc</a>
-                    <a class="btn" href="">123</a>
+                    <th:block th:each="item:${page.topNav}">
+                        <a class="btn cur" th:href="*{page.url}" th:text="${page.name}"></a>
+                    </th:block>
                 </div>
             </div>
         </div>
