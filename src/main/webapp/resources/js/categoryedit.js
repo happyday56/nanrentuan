@@ -17,7 +17,7 @@ $(function () {
         model.keywords = $("#keywords").val();
         model.description = $("#description").val();
         model.sort = $("#sort").val();
-        J.AjaxJsonPost("categoryedit.save", model,
+        $.post("categoryedit.save", model,
             function (data) {
                 if (data == 1) {
                     alert("保存成功");
