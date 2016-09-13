@@ -28,7 +28,7 @@
                 <div class="list_summary">
                     <a th:href="${item.url}">
                         <div class="list_img_holder"><img th:src="${item.pictureUrl}"/></div>
-                        <label th:text="${item.time }"></label>
+                        <label th:text="${@#calendars.format(item.time ,'yyyy MM dd')}"></label>
                         <th:block th:text="${item.summary }"></th:block>
                     </a></div>
                 <div class="clear"></div>
