@@ -13,59 +13,50 @@
 <table width="100%" class="list_table_edit">
     <tr>
         <th>序号</th>
-        <td><span id="id"></span></td>
+        <td><span th:text="${page.id}"></span></td>
     </tr>
     <tr>
         <th>名称</th>
-        <td><input id="name" type="text" size="100"/></td>
+        <td><input id="name" type="text" size="100" th:value="${page.name}"/></td>
     </tr>
     <tr>
-        <th>分类</th>
+        <th>父级</th>
         <td>
             <select id="category">
-
+                <th:block th:each="parent:${page.parents}">
+                    <option th:value="${parent.id}" th:text="${parent.name}"></option>
+                </th:block>
             </select>
         </td>
     </tr>
     <tr>
-        <th>内容</th>
-        <td><textarea id="content"></textarea></td>
+        <th>路径</th>
+        <td><input id="path" type="text" size="100" th:value="${page.path}"/></td>
     </tr>
-    <tr>
-        <th>摘要</th>
-        <td><input id="summary" type="text" size="100"/></td>
-    </tr>
-    <tr>
-        <th>图片地址</th>
-        <td><img id="imgPictureUrl" src="" alt="" width="200px" height="auto"/>
-            <br/>
-            <input id="pictureUrl" type="text" size="100"/>
 
-        </td>
+
+    <tr>
+        <th>标题</th>
+        <td><input id="title" type="text" size="100" th:value="${page.title}"/></td>
     </tr>
 
     <tr>
         <th>关键字</th>
-        <td><input id="keywords" type="text" size="100"/></td>
+        <td><input id="keywords" type="text" size="100" th:value="${page.keywords}"/></td>
     </tr>
     <tr>
         <th>描述</th>
-        <td><input id="description" type="text" size="100"/></td>
+        <td><input id="description" type="text" size="100" th:value="${page.description}"/></td>
     </tr>
 
     <tr>
-        <th>上传时间</th>
-        <td><input id="uploadTime" type="text" size="100"
-                   onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false,readOnly:true})"/></td>
+        <th>排序号</th>
+        <td><input id="sort" type="text" size="10" th:value="${page.sort}"/></td>
     </tr>
     <tr>
-        <th>浏览次数</th>
-        <td><input id="views" type="text" size="100"/></td>
-    </tr>
-    <tr>
-        <td colspan="2">
+        <td colspan="2" style="text-align: center">
             <input type="button" id="btnSave" value="保存"/>
-
+            <input type="hidden" id="id" th:value="${page.id}">
         </td>
     </tr>
 </table>

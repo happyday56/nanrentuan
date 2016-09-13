@@ -9,6 +9,7 @@ import com.lgh.nanrentuan.service.CategoryService;
 import com.lgh.nanrentuan.service.resource.StaticResourceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -63,9 +64,14 @@ public class ManagerController {
 
     @RequestMapping("/categorylist")
     public String categoryList() {
-        return "manager/category_list";
+        return "manager/categorylist";
     }
 
+    @RequestMapping("/categoryedit")
+    public String categoryEdit(String oper, Long id, Model model) {
+        model.addAttribute("page", categoryService.getAdminCategory(oper, id));
+        return "manager/categoryedit";
+    }
 
     @RequestMapping("/articlelist.do")
     @ResponseBody
@@ -179,6 +185,14 @@ public class ManagerController {
     public List<AdminCategoryListModel> categoryListDo() {
         return categoryService.getAdminCategoryList();
     }
+
+    @RequestMapping("/categoryedit.save")
+    @ResponseBody
+    public Integer categoryEditSave(String oper, Long id, String name, Long categoryId, String path, String title, String keywords, String description, Integer sort) {
+        categoryService.saveCategory(oper, id, name, categoryId, path, title, keywords, description, sort);
+        return 1;
+    }
+
 
     /**
      * 富文本图片上传

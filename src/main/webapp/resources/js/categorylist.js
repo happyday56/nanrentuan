@@ -13,8 +13,8 @@ page.list = function () {
             html += '<td>' + row.parentName + '</td>';
             html += '<td>' + row.path + '</td>';
             html += '<td>' + row.sort + '</td>';
-            html += '<td><a href="category/edit/' + row.id + '"  target="_blank">修改</a>';
-            if (row.parentName == "") html += '<a href="category/add/' + row.id + '"  target="_blank">新增子项</a>';
+            html += '<td><a href="categoryedit?oper=edit&id=' + row.id + '"  target="_blank">修改</a>';
+            if (row.parentName == "") html += '<a href="categoryedit?oper=add&id=' + row.id + '"  target="_blank">新增子项</a>';
             html += '</td></tr>';
         }
         $("#list").find("tbody").html(html);

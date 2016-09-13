@@ -17,4 +17,6 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
     List<Category> findAllOrderBySortAsc();
 
     Category findByPath(String path);
+
+    List<Category> findAllByParent(Category parent);
 }
