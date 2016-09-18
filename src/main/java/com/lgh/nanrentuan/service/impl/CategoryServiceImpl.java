@@ -24,8 +24,8 @@ public class CategoryServiceImpl implements CategoryService {
     @Autowired
     private URIService uriService;
 
-    public List<CategoryListModel> getlist() {
-        List<Category> categories = categoryRepository.findAllOrderBySortAsc();
+    public List<CategoryListModel> getParents() {
+        List<Category> categories = categoryRepository.findParents();
         List<CategoryListModel> list = new ArrayList<>();
         categories.forEach(x -> {
             list.add(new CategoryListModel(x.getId(), x.getName()));
@@ -34,7 +34,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     public List<AdminCategoryListModel> getAdminCategoryList() {
-        List<Category> categories = categoryRepository.findAllOrderBySortAsc();
+        List<Category> categories = categoryRepository.findParents();
         List<AdminCategoryListModel> list = new ArrayList<>();
         categories.forEach(x -> {
             AdminCategoryListModel adminCategoryListModel = new AdminCategoryListModel();

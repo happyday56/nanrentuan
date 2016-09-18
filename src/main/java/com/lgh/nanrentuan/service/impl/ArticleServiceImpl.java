@@ -6,6 +6,7 @@ import com.lgh.nanrentuan.model.*;
 import com.lgh.nanrentuan.repository.ArticleRepository;
 import com.lgh.nanrentuan.repository.CategoryRepository;
 import com.lgh.nanrentuan.service.ArticleService;
+import com.lgh.nanrentuan.service.CommonService;
 import com.lgh.nanrentuan.service.URIService;
 import com.lgh.nanrentuan.service.resource.StaticResourceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,11 +42,12 @@ public class ArticleServiceImpl implements ArticleService {
     @Autowired
     private EntityManager entityManager;
 
+    @Autowired
+    private CommonService commonService;
+
     public WebIndexPageModel getIndex(Integer pageNo, Integer pageSize) {
         WebIndexPageModel webIndexPageModel = new WebIndexPageModel();
-        webIndexPageModel.setTitle("男人团，找福利，谋福利，快乐多多，幸福多多");
-        webIndexPageModel.setKeywords("");//todo
-        webIndexPageModel.setDescription("");
+        commonService.setPageCommonData(webIndexPageModel, "男人团，找福利，谋福利，快乐多多，幸福多多", "", "");
 
         Pageable pageable = new PageRequest(pageNo, pageSize, new Sort(Sort.Direction.ASC, "id"));
         Page<Article> articles = articleRepository.findAll(pageable);
@@ -66,9 +68,8 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public WebCategoryPageModel getCategory(String path, Integer pageNo, Integer pageSize) {
         WebCategoryPageModel webCategoryPageModel = new WebCategoryPageModel();
-        webCategoryPageModel.setTitle("");//todo
-        webCategoryPageModel.setKeywords("");//todo
-        webCategoryPageModel.setDescription("");
+        commonService.setPageCommonData(webCategoryPageModel,"","","");
+
         webCategoryPageModel.setNavTitle("");
         webCategoryPageModel.setNavUrl("");
 
@@ -108,6 +109,8 @@ public class ArticleServiceImpl implements ArticleService {
 
     public WebArticlePageModel getArticle(Long id) {
         WebArticlePageModel webArticlePageModel = new WebArticlePageModel();
+        commonService.setPageCommonData(webArticlePageModel,"","","");
+
         Article article = articleRepository.findOne(id);
         if (article != null) {
             webArticlePageModel.setTitle("");//todo

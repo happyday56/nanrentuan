@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.annotation.PostConstruct;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -31,13 +32,4 @@ public abstract class WebBasePageModel {
      * 导航
      */
     private List<WebTopNavListModel> topNav;
-
-    public void createTopNav() {
-        System.out.printf("abc-------------------------------");
-    }
-
-    @PostConstruct
-    public void createBasePage() {
-        createTopNav();
-    }
 }

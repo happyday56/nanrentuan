@@ -12,4 +12,8 @@ import java.util.List;
 @Setter
 public class WebTopNavListModel extends WebCategoryListModel {
     private List<WebTopNavListModel> list;
+
+    public WebTopNavListModel(String url, String name) {
+        super(url, name);
+    }
 }

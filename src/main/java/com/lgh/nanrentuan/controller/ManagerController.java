@@ -121,7 +121,7 @@ public class ManagerController {
     Object articleeditdo(Long id) {
 
         if (id == null) {
-            return categoryService.getlist();
+            return categoryService.getParents();
         } else {
             AdminArticleEditRequest result = new AdminArticleEditRequest();
             Article article = articleRepository.findOne(id);
@@ -138,7 +138,7 @@ public class ManagerController {
                 result.setViews(article.getViews());
 
                 result.setPictureUrl(article.getPictureUrl());
-                result.setCategories(categoryService.getlist());
+                result.setCategories(categoryService.getParents());
             }
             return result;
         }

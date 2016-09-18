@@ -13,10 +13,13 @@ import java.util.List;
 @Repository
 public interface CategoryRepository extends JpaRepository<Category, Long> {
 
-    @Query("select category from Category category order by category.sort")
-    List<Category> findAllOrderBySortAsc();
+    @Query("select category from Category category where category.parent=null order by category.sort")
+    List<Category> findParents();
 
     Category findByPath(String path);
 
     List<Category> findAllByParent(Category parent);
+
+    @Query("select category from Category category  order by category.sort")
+    List<Category> findAllOrderBySortAsc();
 }
