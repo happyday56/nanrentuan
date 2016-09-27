@@ -30,10 +30,10 @@ public class Article {
     private Category category;
 
     /**
-     * 标题
+     * 文章标题
      */
     @Column(length = 200)
-    private String title;
+    private String name;
 
     /**
      * 图片地址
@@ -52,14 +52,20 @@ public class Article {
      */
     @Column(length = 500)
     private String summary;
+
     /**
-     * 关键字
+     * seo标题
+     */
+    @Column(length = 200)
+    private String title;
+    /**
+     * seo关键字
      */
     @Column(length = 200)
     private String keywords;
 
     /**
-     * 描述
+     * seo描述
      */
     @Column(length = 500)
     private String description;
