@@ -33,7 +33,7 @@ public class Article {
      * 文章标题
      */
     @Column(length = 200)
-    private String name;
+    private String title;
 
     /**
      * 图片地址
@@ -53,11 +53,6 @@ public class Article {
     @Column(length = 500)
     private String summary;
 
-    /**
-     * seo标题
-     */
-    @Column(length = 200)
-    private String title;
     /**
      * seo关键字
      */

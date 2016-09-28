@@ -57,24 +57,25 @@ img {
     position: relative;
 }
 
+.top_bar {
+    background: #d43d3d none repeat scroll 0 0;
+    height: 100px;
+    position: relative;
+}
+
+
+
 .top_bar .abs_m {
-    color: #fff;
-    font-size: 20px;
-    line-height: 44px;
     text-align: center;
     width: 100%;
 }
 
-.top_bar {
-    background: #d43d3d none repeat scroll 0 0;
-    height: 44px;
-    position: relative;
-}
+
 
 .top_menu_bar {
     background: rgba(255, 255, 255, 0.95) none repeat scroll 0 0;
     box-sizing: border-box;
-    height: 37px;
+    height: 50px;
     border-bottom: 1px solid #e5e5e5;
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#EAffffff, endColorstr=#EAffffff);
 }
@@ -97,30 +98,26 @@ img {
 }
 
 .top_menu_list {
+    padding: 10px;
+    width: 1000px;
     white-space: nowrap;
-    text-align: center;
+    margin: auto;
 }
 
 .top_menu_list .btn {
-    color: #333;
-    display: inline-block;
-    font-size: 14px;
-    height: 26px;
-    line-height: 26px;
-    margin: 5px 0 5px 0px;
-    padding: 0 5px;
+    font-size: 16px;
     text-decoration: none;
-    white-space: nowrap;
+    color: #d00000;
+    padding: 16px 20px;
 }
 
 .top_menu_list .btn.cur {
-    color: #d00;
-    font-size: 15px;
+
 }
 
 #content {
     /*border: dotted 1px #555;*/
-    padding: 60px 20px 30px 30px;
+    padding: 160px 20px 30px 30px;
 }
 
 #content .list {
@@ -130,6 +127,7 @@ img {
 
 #content .list_title h1 {
     font-size: 20px;
+    color:#555555;
 }
 
 #content .list_summary {
@@ -159,6 +157,10 @@ img {
 #content .list_summary label {
     font-size: 14px;
     color: #666;
+}
+
+#content .item_title h1 {
+    font-size: 24px;
 }
 
 #content .item_content {

@@ -16,12 +16,12 @@ public class CommonConfigServiceImpl implements CommonConfigService {
 
     @Override
     public String getResourcesUri() {
-        return env.getProperty("lgh.resourcesUri", "http://localhost:8080/_resources");
+        return env.getProperty("lgh.resourcesUri", "http://localhost:8080");
     }
 
     @Override
     public String getResourcesHome() {
-        return env.getProperty("lgh.resourcesHome", "D:/java_project/nanrentuan/target/ROOT/_resources");// "D:/java_project/huanlebian/target/ROOT/_resources"
+        return env.getProperty("lgh.resourcesHome", "D:/nanrentuan/target/ROOT");// "D:/java_project/huanlebian/target/ROOT/_resources"
     }
 
 }

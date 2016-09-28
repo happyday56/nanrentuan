@@ -3,6 +3,7 @@ package com.lgh.nanrentuan.controller;
 import com.lgh.nanrentuan.entity.Article;
 import com.lgh.nanrentuan.repository.ArticleRepository;
 import com.lgh.nanrentuan.service.ArticleService;
+import com.lgh.nanrentuan.service.CommonService;
 import com.lgh.nanrentuan.service.URIService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -26,6 +27,9 @@ public class ArticleController {
 
     @Autowired
     private URIService uriService;
+
+    @Autowired
+    private CommonService commonService;
 
     @RequestMapping("/")
     public String index(Model model) {
@@ -85,6 +89,7 @@ public class ArticleController {
 
     @RequestMapping(value = "/404error")
     public String error(Model model) {
+        model.addAttribute("page", commonService.getErrorPage());
         return "404error";
     }
 

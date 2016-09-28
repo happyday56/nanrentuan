@@ -2,12 +2,13 @@ $(function () {
     $("#btnSave").click(function () {
         var model = {};
         var href = window.location.href;
-        if (href.indexOf("edit")) {
+        if (href.indexOf("oper=edit") >= 0) {
             model.oper = "edit";
         }
         else {
             model.oper = "add";
         }
+
 
         model.id = $("#id").val();
         model.name = $("#name").val();

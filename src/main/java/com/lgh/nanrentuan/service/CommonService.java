@@ -1,6 +1,7 @@
 package com.lgh.nanrentuan.service;
 
 import com.lgh.nanrentuan.model.WebBasePageModel;
+import com.lgh.nanrentuan.model.WebErrorPageModel;
 import com.lgh.nanrentuan.model.WebIndexPageModel;
 import com.lgh.nanrentuan.model.WebTopNavListModel;
 
@@ -29,4 +30,10 @@ public interface CommonService {
      * @return
      */
     List<WebTopNavListModel> getTopNavCategorys();
+
+    /**
+     * 获得错误页面
+     * @return
+     */
+    WebErrorPageModel getErrorPage();
 }

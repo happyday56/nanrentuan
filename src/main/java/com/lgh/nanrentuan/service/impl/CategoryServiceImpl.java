@@ -66,7 +66,7 @@ public class CategoryServiceImpl implements CategoryService {
             adminCategoryModel.setPath(category.getPath());
             adminCategoryModel.setSort(category.getSort());
         } else if (oper.equals("add")) {
-            if (id > 0) {
+            if (id != null && id > 0) {
                 adminCategoryModel.setParentId(id);
             }
         }
