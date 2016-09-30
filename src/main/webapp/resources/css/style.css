@@ -13,17 +13,8 @@ body {
 }
 
 a {
-    color: #333;
+    color: #666;
     text-decoration: none;
-}
-
-a:visited {
-    color: #999;
-}
-
-a:hover {
-    color: #d00;
-    text-decoration: underline;
 }
 
 .clear {
@@ -57,49 +48,34 @@ img {
     position: relative;
 }
 
+/*topbar*/
 .top_bar {
-    background: #d43d3d none repeat scroll 0 0;
+    background: #373D41 none repeat scroll 0 0;
     height: 100px;
     position: relative;
 }
-
-
 
 .top_bar .abs_m {
     text-align: center;
     width: 100%;
 }
 
-
-
+/*topmenubar*/
 .top_menu_bar {
     background: rgba(255, 255, 255, 0.95) none repeat scroll 0 0;
     box-sizing: border-box;
-    height: 50px;
+    height: 40px;
     border-bottom: 1px solid #e5e5e5;
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#EAffffff, endColorstr=#EAffffff);
 }
 
-.top_menu_bar::after {
-    background-position: center bottom;
-    background-repeat: no-repeat;
-    background-size: 100% 1px;
-    bottom: 0;
-    content: "";
-    height: 1px;
-    left: 0;
-    position: absolute;
-    width: 100%;
-}
-
 .top_menu {
-    overflow-x: scroll;
-    overflow-y: hidden;
+    overflow: hidden;
 }
 
 .top_menu_list {
-    padding: 10px;
-    width: 1000px;
+    padding: 10px 0px 10px 0px;
+    width: 980px;
     white-space: nowrap;
     margin: auto;
 }
@@ -107,17 +83,28 @@ img {
 .top_menu_list .btn {
     font-size: 16px;
     text-decoration: none;
-    color: #d00000;
+    color: #333333;
     padding: 16px 20px;
 }
 
 .top_menu_list .btn.cur {
-
+    background-color: #00C1DE;
+    color: #FFFFFF;
 }
 
+.top_menu_list .btn:hover {
+    background-color: #00C1DE;
+    color: #FFFFFF;
+}
+
+/*content*/
 #content {
     /*border: dotted 1px #555;*/
-    padding: 160px 20px 30px 30px;
+    padding: 140px 20px 30px 30px;
+}
+
+#content .position {
+    padding: 20px 0px 20px 0px;
 }
 
 #content .list {
@@ -127,7 +114,7 @@ img {
 
 #content .list_title h1 {
     font-size: 20px;
-    color:#555555;
+    color: #555555;
 }
 
 #content .list_summary {
@@ -187,10 +174,9 @@ img {
 }
 
 #footer {
-
     color: #666;
     text-align: center;
-    line-height: 26px;
+    line-height: 100px;
 }
 
 #footer a {
