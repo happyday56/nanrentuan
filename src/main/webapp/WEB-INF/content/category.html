@@ -18,19 +18,18 @@
     <div th:include="fragments/top::top"></div>
     <div id="content">
         <div class="position">
-            当前位置：<a href="/">首页</a> &raquo; <a th:href="${page.navUrl}" th:text="${page.navTitle}"></a>
+            <a href="/">首页</a> &raquo; <a th:href="${page.navUrl}" th:text="${page.navTitle}"></a>
         </div>
         <th:block th:each="item:${page.list}">
             <div class="list">
                 <div class="list_title">
-                    <a th:href="${item.url}" th:title="${item.title}"><h1 th:text="${item.title}"></h1></a>
+                    <a th:href="*{item.url}" th:title="*{item.title }"><h2 th:text="*{item.title}"></h2></a>
                 </div>
                 <div class="list_summary">
-                    <a th:href="${item.url}">
-                        <div class="list_img_holder"><img th:src="${item.pictureUrl}"/></div>
-                        <label th:text="*{#calendars.format(item.time,'yyyy-MM-dd')}"></label>
-                        <th:block th:text="${item.summary }"></th:block>
-                    </a></div>
+                    <div class="list_img_holder"><a th:href="*{item.url}"><img th:src="*{item.pictureUrl}"/></a></div>
+                    <th:block th:text="*{item.summary }"></th:block>
+                    <div class="time" th:text="*{#calendars.format(item.time,'yyyy-MM-dd')}"></div>
+                </div>
                 <div class="clear"></div>
             </div>
         </th:block>

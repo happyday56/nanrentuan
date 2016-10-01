@@ -49,7 +49,7 @@ public class ArticleServiceImpl implements ArticleService {
         WebIndexPageModel webIndexPageModel = new WebIndexPageModel();
         commonService.setPageCommonData(webIndexPageModel, "男人团，找福利，谋福利，快乐多多，幸福多多", "", "");
 
-        Pageable pageable = new PageRequest(pageNo, pageSize, new Sort(Sort.Direction.ASC, "id"));
+        Pageable pageable = new PageRequest(pageNo, pageSize, new Sort(Sort.Direction.DESC, "id"));
         Page<Article> articles = articleRepository.findAll(pageable);
         webIndexPageModel.setList(convertArticleList(articles.getContent()));
 
@@ -74,7 +74,7 @@ public class ArticleServiceImpl implements ArticleService {
         webCategoryPageModel.setNavUrl("");
 
         Category category = categoryRepository.findByPath(path);
-        Pageable pageable = new PageRequest(pageNo, pageSize, new Sort(Sort.Direction.ASC, "id"));
+        Pageable pageable = new PageRequest(pageNo, pageSize, new Sort(Sort.Direction.DESC, "id"));
         Page<Article> articles = articleRepository.findAllByCategory(category, pageable);
         webCategoryPageModel.setList(convertArticleList(articles.getContent()));
 

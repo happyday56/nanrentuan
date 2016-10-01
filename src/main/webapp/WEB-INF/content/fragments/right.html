@@ -5,9 +5,26 @@
 <div th:fragment="right">
     <div id="sidebar">
         <div class="section">
-            <h3>Top</h3>
+            <h3>最新文章</h3>
             <ul>
-                <li><a target="_blank" href="url">title</a></li>
+                <th:block th:each="item:${page.recent}">
+                    <li>
+                        <a th:href="*{item.url}" th:text="*{item.title}"></a>
+                        <div class="time" th:text="*{#calendars.format(item.time,'yyyy-MM-dd')}"></div>
+                    </li>
+                </th:block>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h3>热门文章</h3>
+            <ul>
+                <th:block th:each="item:${page.hot}">
+                    <li>
+                        <a th:href="*{item.url}" th:text="*{item.title}"></a>
+                        <div class="time" th:text="*{#calendars.format(item.time,'yyyy-MM-dd')}"></div>
+                    </li>
+                </th:block>
             </ul>
         </div>
     </div>

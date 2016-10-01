@@ -32,4 +32,13 @@ public abstract class WebBasePageModel {
      * 导航
      */
     private List<WebTopNavListModel> topNav;
+
+    /**
+     * 最新文章
+     */
+    private List<WebArticleBaseModel> recent;
+    /**
+     * 最热门文章
+     */
+    private List<WebArticleBaseModel> hot;
 }
