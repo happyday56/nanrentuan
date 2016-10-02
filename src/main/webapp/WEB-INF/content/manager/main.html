@@ -4,9 +4,8 @@
     <title></title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7"/>
-    <link rel="stylesheet" type="text/css" th:href="/resources/css/main.css"/>
-    <link rel="stylesheet" type="text/css" href="/resources/css/m.css"/>
-    <script type="text/javascript" th:src="/resources/js/jquery1.7.2.js"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/main.css}"/>
+    <script type="text/javascript" th:src="@{/resources/js/jquery1.7.2.js}"></script>
     <script type="text/javascript">
         $(function () {
             $(".left a").click(function () {
@@ -14,54 +13,57 @@
                 $(this).addClass("current");
             });
 
-            $(window).resize(function () {
-                resize();
-            });
-
-            resize();
+//            $(window).resize(function () {
+//                resize();
+//            });
+//
+//            resize();
         });
 
         function resize() {
             var w = $(window).width() - $(".left").width();
-            //var h = $(window).height() - $(".bot").height();
             $(".right").width(w);
-            $(".right").height(500);
-            $(".rightbody").height(500);
 
+            var rightHeight = $("#frmRight").contents().find("body").height() + 30;
+            $(".right").height(rightHeight);
+            $(".rightBody").height(rightHeight);
         }
 
+        setInterval(function () {
+            resize()
+        }, 100);
     </script>
 
 </head>
 <body>
 <div id="box">
     <div style="background: #00a2ca; height: 5px;"></div>
-    <h1>管理后台</h1>
-
+    <h2 style="line-height: 30px;">管理后台</h2>
     <div style="clear: both;"></div>
-    <div class="mid">
-        <div class="left">
-            <div class="leftbody">
+    <div style="margin: auto; ">
+        <div class="left" style="float: left; width: 100px;">
+            <div>
                 <dl>
                     <dt>网站栏目</dt>
                     <dd>
-                        <div><a href=" " target="frmRight" class="current">文章</a></div>
-
+                        <div><a th:href="@{/man/configEdit}" target="frmRight" class="current">配置</a></div>
+                        <div><a th:href="@{/man/categorylist}" target="frmRight" class="current">分类</a></div>
+                        <div><a th:href="@{/man/articlelist}" target="frmRight" class="current">文章</a></div>
                     </dd>
                 </dl>
 
             </div>
         </div>
-        <div class="right">
-            <div class="rightbody">
-                <iframe id="frmRight" name="frmRight" src=" " frameborder="0" scrolling="auto"
+        <div class="right" style="float: right;">
+            <div class="rightBody">
+                <iframe id="frmRight" name="frmRight" th:src="@{/man/articlelist}" frameborder="0" scrolling="auto"
                         width="100%" height="100%"></iframe>
             </div>
         </div>
         <div style="clear: both;"></div>
     </div>
     <div style="clear: both;"></div>
-    <div class="bot">
+    <div style="text-align: center;height: 40px;">
         @WebConfig.CopyRight
     </div>
 </div>

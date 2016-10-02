@@ -5,5 +5,6 @@ package com.lgh.nanrentuan.model;
  */
 public enum CommonVersion {
     initVersion,
-    Version101;
+    Version101,
+    Version102;
 }

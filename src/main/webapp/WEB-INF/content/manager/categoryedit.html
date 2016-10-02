@@ -6,10 +6,10 @@
     <link rel="stylesheet" type="text/css" th:href="@{/resources/css/main.css}"/>
     <script type="text/javascript" th:src="@{/resources/js/jquery1.7.2.js}"></script>
     <script type="text/javascript" th:src="@{/resources/js/jquery.utils.js}"></script>
-    <script type="text/javascript" th:src="@{/resources/js/paging.js}"></script>
     <script type="text/javascript" th:src="@{/resources/js/categoryedit.js}"></script>
 </head>
 <body>
+<div class="title">分类操作</div>
 <table width="100%" class="list_table_edit">
     <tr>
         <th>序号</th>
@@ -17,7 +17,7 @@
     </tr>
     <tr>
         <th>名称</th>
-        <td><input id="name" type="text" size="100" th:value="${page.name}"/></td>
+        <td><input class="txt" id="name" type="text" style="width: 100px;" th:value="${page.name}"/></td>
     </tr>
     <tr>
         <th>父级</th>
@@ -32,31 +32,31 @@
     </tr>
     <tr>
         <th>路径</th>
-        <td><input id="path" type="text" size="100" th:value="${page.path}"/></td>
+        <td><input class="txt" id="path" type="text" th:value="${page.path}"/></td>
     </tr>
 
 
     <tr>
         <th>标题</th>
-        <td><input id="title" type="text" size="100" th:value="${page.title}"/></td>
+        <td><input class="txt" id="title" type="text" style="width: 500px;" th:value="${page.title}"/></td>
     </tr>
 
     <tr>
         <th>关键字</th>
-        <td><input id="keywords" type="text" size="100" th:value="${page.keywords}"/></td>
+        <td><input class="txt" id="keywords" type="text" style="width: 500px;" th:value="${page.keywords}"/></td>
     </tr>
     <tr>
         <th>描述</th>
-        <td><input id="description" type="text" size="100" th:value="${page.description}"/></td>
+        <td><input class="txt" id="description" type="text" style="width: 800px;" th:value="${page.description}"/></td>
     </tr>
 
     <tr>
         <th>排序号</th>
-        <td><input id="sort" type="text" size="10" th:value="${page.sort}"/></td>
+        <td><input class="txt" id="sort" type="text" style="width: 80px;" th:value="${page.sort}"/></td>
     </tr>
     <tr>
         <td colspan="2" style="text-align: center">
-            <input type="button" id="btnSave" value="保存"/>
+            <input class="button1" type="button" id="btnSave" value="保存"/>
             <input type="hidden" id="id" th:value="${page.id}"/>
         </td>
     </tr>

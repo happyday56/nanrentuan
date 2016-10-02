@@ -43,7 +43,6 @@ $(function () {
         J.AjaxJsonPost("articleedit.save", JSON.stringify(model),
             function (data) {
                 if (data == 1) {
-                    alert("保存成功");
                     window.location = "articlelist";
                 } else {
                     alert(data);

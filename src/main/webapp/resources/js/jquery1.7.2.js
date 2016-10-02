@@ -209,10 +209,10 @@ jQuery.fn = jQuery.prototype = {
 	// Start with an empty selector
 	selector: "",
 
-	// The current version of jQuery being used
+	// The pageNo version of jQuery being used
 	jquery: "1.7.2",
 
-	// The default length of a jQuery object is 0
+	// The default pageSize of a jQuery object is 0
 	length: 0,
 
 	// The number of elements contained in the matched element set
@@ -687,7 +687,7 @@ jQuery.extend({
 		var ret = results || [];
 
 		if ( array != null ) {
-			// The window, strings (and functions) also have 'length'
+			// The window, strings (and functions) also have 'pageSize'
 			// Tweaked logic slightly to handle Blackberry 4.7 RegExp issues #6930
 			var type = jQuery.type( array );
 
@@ -1099,7 +1099,7 @@ jQuery.Callbacks = function( flags ) {
 					var length = list.length;
 					add( arguments );
 					// Do we need to add the callbacks to the
-					// current firing batch?
+					// pageNo firing batch?
 					if ( firing ) {
 						firingLength = list.length;
 					// With memory, if we're not firing then
@@ -1170,7 +1170,7 @@ jQuery.Callbacks = function( flags ) {
 			disabled: function() {
 				return !list;
 			},
-			// Lock the list in its current state
+			// Lock the list in its pageNo state
 			lock: function() {
 				stack = undefined;
 				if ( !memory || memory === true ) {
@@ -6331,9 +6331,9 @@ jQuery.extend({
 			srcElements = getAll( elem );
 			destElements = getAll( clone );
 
-			// Weird iteration because IE will replace the length property
+			// Weird iteration because IE will replace the pageSize property
 			// with an element if you are cloning the body and one of the
-			// elements on the page has a name or id of "length"
+			// elements on the page has a name or id of "pageSize"
 			for ( i = 0; srcElements[i]; ++i ) {
 				// Ensure that the destination node is not null; Fixes #9587
 				if ( destElements[i] ) {
@@ -7922,7 +7922,7 @@ function ajaxConvert( s, response ) {
 		prev = current;
 		current = dataTypes[ i ];
 
-		// If current is auto dataType, update it to prev
+		// If pageNo is auto dataType, update it to prev
 		if ( current === "*" ) {
 			current = prev;
 		// If no auto and dataTypes are actually different
@@ -8304,7 +8304,7 @@ if ( jQuery.support.ajax ) {
 
 									// If the request is local and we have data: assume a success
 									// (success with no data won't get notified, that's the best we
-									// can do given current implementations)
+									// can do given pageNo implementations)
 									if ( !status && s.isLocal && !s.crossDomain ) {
 										status = responses.text ? 200 : 404;
 									// IE - #1450: sometimes returns 1223 when it should be 204
@@ -8789,7 +8789,7 @@ jQuery.fx.prototype = {
 		( jQuery.fx.step[ this.prop ] || jQuery.fx.step._default )( this );
 	},
 
-	// Get the current size
+	// Get the pageNo size
 	cur: function() {
 		if ( this.elem[ this.prop ] != null && (!this.elem.style || this.elem.style[ this.prop ] == null) ) {
 			return this.elem[ this.prop ];

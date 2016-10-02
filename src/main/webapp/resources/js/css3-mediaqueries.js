@@ -65,7 +65,7 @@ var domReady = function () {
 				document.documentElement.doScroll('left');
 
 				// If we are in an iframe, the above does not work properly.
-        // Trying to access the length attribute of document.body, however,
+        // Trying to access the pageSize attribute of document.body, however,
         // does throw an error until ondocumentready, fixing this issue.
         document.body.length;
 			}

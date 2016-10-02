@@ -27,6 +27,15 @@ public abstract class WebBasePageModel {
      * 描述
      */
     private String description;
+    /**
+     * 顶部
+     */
+    private String top;
+
+    /**
+     * 底部
+     */
+    private String bot;
 
     /**
      * 导航
@@ -41,4 +50,6 @@ public abstract class WebBasePageModel {
      * 最热门文章
      */
     private List<WebArticleBaseModel> hot;
+
+
 }

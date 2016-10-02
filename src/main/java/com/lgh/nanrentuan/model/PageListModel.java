@@ -12,5 +12,5 @@ import java.util.List;
 @Setter
 public class PageListModel {
     private List<?> list;
-    private PagingModel page;
+    private Paging page;
 }

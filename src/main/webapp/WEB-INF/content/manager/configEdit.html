@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/main.css}"/>
+    <script type="text/javascript" th:src="@{/resources/js/jquery1.7.2.js}"></script>
+    <script type="text/javascript" th:src="@{/resources/js/jquery.utils.js}"></script>
+    <script type="text/javascript" th:src="@{/resources/js/configedit.js}"></script>
+    <script charset="utf-8" th:src="@{/resources/js/kindeditor/kindeditor.js}" type="text/javascript"></script>
+    <script charset="utf-8" th:src="@{/resources/js/kindeditor/lang/zh_CN.js}" type="text/javascript"></script>
+
+</head>
+<body>
+<div class="title">网站配置</div>
+<table width="100%" class="list_table_edit">
+
+    <tr>
+        <th>标题</th>
+        <td><input class="txt" id="title" type="text" style="width:500px" th:value="${page.title}"/></td>
+    </tr>
+    <tr>
+        <th>关键字</th>
+        <td><input class="txt" id="keywords" type="text" style="width:500px" th:value="${page.keywords}"/></td>
+    </tr>
+    <tr>
+        <th>关键字</th>
+        <td><input class="txt" id="description" type="text" style="width:800px" th:value="${page.description}"/></td>
+    </tr>
+    <tr>
+        <th>顶部</th>
+        <td><textarea class="txt" id="top" th:text="${page.top}"></textarea></td>
+    </tr>
+
+    <tr>
+        <td colspan="2" style="text-align: center">
+            <input class="button1" type="button" id="btnSave" value="保存"/>
+
+        </td>
+    </tr>
+</table>
+<script>
+
+    KindEditor.ready(function (K) {
+        window.editor = K.create('#top', {
+            width: '700px'
+            , height: '200px'
+            , uploadJson: '../man/uploadUeImage'
+            , items: [
+                'source', 'undo', 'redo', '|', 'preview', 'cut', 'copy', 'paste',
+                'plainpaste', 'wordpaste', '|', 'justifyleft', 'justifycenter', 'justifyright',
+                'justifyfull', 'insertorderedlist', 'insertunorderedlist', 'indent', 'outdent', 'subscript',
+                'superscript', 'clearhtml', 'quickformat', 'selectall', '|', 'fullscreen', '/',
+                'formatblock', 'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold',
+                'italic', 'underline', 'strikethrough', 'lineheight', 'removeformat', '|', 'image',
+                'table', 'hr', 'emoticons', 'pagebreak',
+                'anchor', 'link', 'unlink'
+            ]
+        });
+    });
+</script>
+</body>
+</html>

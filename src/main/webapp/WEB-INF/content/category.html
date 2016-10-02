@@ -1,14 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title></title>
+    <title th:text="${page.title}"></title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui"/>
     <meta name="keywords" th:content="${page.keywords}"/>
     <meta name="description" th:content="${page.description}"/>
-    <meta name="author" content=""/>
-    <meta name="copyright" content=""/>
     <link rel="stylesheet" type="text/css" th:href="@{/resources/css/style.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/resources/css/pagebar.css}"/>
     <script type="text/javascript" th:src="@{/resources/js/jquery1.7.2.js}"></script>
@@ -18,7 +16,7 @@
     <div th:include="fragments/top::top"></div>
     <div id="content">
         <div class="position">
-            <a href="/">首页</a> &raquo; <a th:href="${page.navUrl}" th:text="${page.navTitle}"></a>
+            <a href="/">首页</a> &gt; <a th:href="${page.navUrl}" th:text="${page.navTitle}"></a>
         </div>
         <th:block th:each="item:${page.list}">
             <div class="list">
@@ -28,7 +26,7 @@
                 <div class="list_summary">
                     <div class="list_img_holder"><a th:href="*{item.url}"><img th:src="*{item.pictureUrl}"/></a></div>
                     <th:block th:text="*{item.summary }"></th:block>
-                    <div class="time" th:text="*{#calendars.format(item.time,'yyyy-MM-dd')}"></div>
+                    <div class="meta" th:text="*{#calendars.format(item.time,'yyyy-MM-dd')}"></div>
                 </div>
                 <div class="clear"></div>
             </div>

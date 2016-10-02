@@ -21,7 +21,6 @@ $(function () {
         $.post("categoryedit.save", model,
             function (data) {
                 if (data == 1) {
-                    alert("保存成功");
                     window.location = "categorylist";
                 } else {
                     alert(data);

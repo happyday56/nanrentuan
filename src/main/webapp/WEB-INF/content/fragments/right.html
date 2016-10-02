@@ -10,7 +10,7 @@
                 <th:block th:each="item:${page.recent}">
                     <li>
                         <a th:href="*{item.url}" th:text="*{item.title}"></a>
-                        <div class="time" th:text="*{#calendars.format(item.time,'yyyy-MM-dd')}"></div>
+                        <div class="meta" th:text="*{#calendars.format(item.time,'yyyy-MM-dd')}"></div>
                     </li>
                 </th:block>
             </ul>
@@ -22,7 +22,7 @@
                 <th:block th:each="item:${page.hot}">
                     <li>
                         <a th:href="*{item.url}" th:text="*{item.title}"></a>
-                        <div class="time" th:text="*{#calendars.format(item.time,'yyyy-MM-dd')}"></div>
+                        <div class="meta" th:text="*{#calendars.format(item.time,'yyyy-MM-dd')}"></div>
                     </li>
                 </th:block>
             </ul>

@@ -19,9 +19,28 @@ public interface ArticleService {
      */
     WebIndexPageModel getIndex(Integer pageNo, Integer pageSize);
 
+    /**
+     * 获取分类页面数据
+     *
+     * @param path
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
     WebCategoryPageModel getCategory(String path, Integer pageNo, Integer pageSize);
 
+    /**
+     * 获取文章页面数据
+     *
+     * @param id
+     * @return
+     */
     WebArticlePageModel getArticle(Long id);
 
+    /**
+     * 获得图片地址
+     * @param path
+     * @return
+     */
     String getPictureUrl(String path);
 }

@@ -23,7 +23,7 @@ public class SystemConfig {
     @Column(length = 50)
     private String code;
 
-    @Column(nullable = false, length = 100)
+    @Column(nullable = false, length = 500)
     private String valueForCode;
 
     @Column(length = 100)

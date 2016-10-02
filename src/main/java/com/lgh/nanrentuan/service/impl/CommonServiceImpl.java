@@ -2,11 +2,13 @@ package com.lgh.nanrentuan.service.impl;
 
 import com.lgh.nanrentuan.entity.Article;
 import com.lgh.nanrentuan.entity.Category;
+import com.lgh.nanrentuan.entity.SystemConfig;
 import com.lgh.nanrentuan.model.*;
 import com.lgh.nanrentuan.repository.ArticleRepository;
 import com.lgh.nanrentuan.repository.CategoryRepository;
 import com.lgh.nanrentuan.service.CategoryService;
 import com.lgh.nanrentuan.service.CommonService;
+import com.lgh.nanrentuan.service.SystemConfigService;
 import com.lgh.nanrentuan.service.URIService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -34,11 +36,17 @@ public class CommonServiceImpl implements CommonService {
     @Autowired
     private URIService uriService;
 
+    @Autowired
+    private SystemConfigService systemConfigService;
+
     public void setPageCommonData(WebBasePageModel webBasePageModel
             , String title, String keywords, String description) {
         webBasePageModel.setTitle(title);
         webBasePageModel.setKeywords(keywords);
         webBasePageModel.setDescription(description);
+        SystemConfigModel systemConfigModel = systemConfigService.list();
+        webBasePageModel.setTop(systemConfigModel.getTop());
+        webBasePageModel.setBot("");
         webBasePageModel.setTopNav(getTopNavCategorys());
         webBasePageModel.setRecent(getRecentArticle());
         webBasePageModel.setHot(getHotArticle());

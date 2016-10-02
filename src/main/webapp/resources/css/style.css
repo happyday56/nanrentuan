@@ -53,11 +53,7 @@ img {
     background: #373D41 none repeat scroll 0 0;
     height: 100px;
     position: relative;
-}
-
-.top_bar .abs_m {
-    text-align: center;
-    width: 100%;
+    color: #ffffff;
 }
 
 /*topmenubar*/
@@ -152,28 +148,52 @@ img {
     width: 100%;
     height: auto;
     margin: 0px 0px 10px 10px;
+    border-radius: 4px;
 }
 
-#content .list_summary .time {
+#content .list_summary .meta {
     text-align: right;
     font-size: 14px;
     color: #999;
 }
 
+#content .item {
+    background-color: #FFFFFF;
+
+}
+
+#content .item_title {
+    border-bottom: solid 1px #e5e5e5;
+}
+
 #content .item_title h1 {
-    font-size: 24px;
+    padding: 0px 20px 0px 20px;
+    font-size: 20px;
+    font-weight: normal;
+    height: 60px;
+    line-height: 60px;
+}
+
+#content .item_title .meta {
+    text-align: center;
+    line-height: 40px;
+    color: #999;
 }
 
 #content .item_content {
-    /*text-indent: 2em;*/
-    color: #5d5d5d;
-    font-size: 18px;
-    line-height: 30px;
+    padding: 20px;
+    color: #555555;
+    font-size: 15px;
+    line-height: 26px;
+    text-indent: 30px;
+    word-break: break-all;
+    word-wrap: break-word;
+    background-color: #fff;
 }
 
 #content .item_content img {
     border-radius: 4px;
-    width: 100%;
+    width: 90%;
     height: auto;
 }
 
@@ -207,7 +227,7 @@ img {
     border-bottom: 1px solid #eeeeee;
 }
 
-#sidebar .section .time {
+#sidebar .section .meta {
     text-align: right;
     font-size: 14px;
     color: #999;
@@ -290,7 +310,7 @@ img {
     }
 
     #content {
-        padding: 60px 8px 30px 8px;
+        padding-right: 0px;
     }
 }
 

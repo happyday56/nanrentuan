@@ -20,6 +20,7 @@
 </head>
 <body>
 
+<div class="title">文章操作</div>
 
 <table width="100%" class="list_table_edit">
     <tr>
@@ -28,28 +29,28 @@
     </tr>
     <tr>
         <th>标题</th>
-        <td><input id="title" type="text" style="width:600px"/></td>
+        <td><input class="txt" id="title" type="text" style="width:600px"/></td>
     </tr>
     <tr>
         <th>分类</th>
         <td>
-            <select id="category">
+            <select id="category" class="txt    ">
 
             </select>
         </td>
     </tr>
     <tr>
         <th>内容</th>
-        <td><textarea id="content"></textarea></td>
+        <td><textarea class="txt" id="content"></textarea></td>
     </tr>
     <tr>
         <th>摘要</th>
-        <td><input id="summary" type="text" style="width:600px"/></td>
+        <td><input class="txt" id="summary" type="text" style="width:600px"/></td>
     </tr>
     <tr>
         <th>图片地址</th>
         <td>
-            <input id="pictureUrl" type="text" style="width:600px"/>
+            <input class="txt" id="pictureUrl" type="text" style="width:600px"/>
             <input type="file" onchange="uploadImage()" name="fileImage" id="fileImage"/>
             <br/>
             <img id="imgPictureUrl" src="" alt="" width="200px" height="auto"/>
@@ -58,25 +59,25 @@
 
     <tr>
         <th>关键字</th>
-        <td><input id="keywords" type="text" style="width:600px"/></td>
+        <td><input class="txt" id="keywords" type="text" style="width:500px"/></td>
     </tr>
     <tr>
         <th>描述</th>
-        <td><input id="description" type="text" style="width:600px"/></td>
+        <td><input class="txt" id="description" type="text" style="width:800px"/></td>
     </tr>
 
     <tr>
         <th>上传时间</th>
-        <td><input id="uploadTime" type="text" style="width:600px"
+        <td><input class="txt" id="uploadTime" type="text" style="width:120px"
                    onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false,readOnly:true})"/></td>
     </tr>
     <tr>
         <th>浏览次数</th>
-        <td><input id="views" type="text" style="width:600px"/></td>
+        <td><input class="txt" id="views" type="text" style="width:80px"/></td>
     </tr>
     <tr>
         <td colspan="2" style="text-align: center">
-            <input type="button" id="btnSave" value="保存"/>
+            <input class="button1" type="button" id="btnSave" value="保存"/>
 
         </td>
     </tr>

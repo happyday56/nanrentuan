@@ -2,11 +2,14 @@ package com.lgh.nanrentuan.service.impl;
 
 import com.lgh.nanrentuan.entity.Article;
 import com.lgh.nanrentuan.entity.Category;
+import com.lgh.nanrentuan.entity.SystemConfig;
 import com.lgh.nanrentuan.model.*;
 import com.lgh.nanrentuan.repository.ArticleRepository;
 import com.lgh.nanrentuan.repository.CategoryRepository;
+import com.lgh.nanrentuan.repository.SystemConfigRepository;
 import com.lgh.nanrentuan.service.ArticleService;
 import com.lgh.nanrentuan.service.CommonService;
+import com.lgh.nanrentuan.service.SystemConfigService;
 import com.lgh.nanrentuan.service.URIService;
 import com.lgh.nanrentuan.service.resource.StaticResourceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,9 +48,19 @@ public class ArticleServiceImpl implements ArticleService {
     @Autowired
     private CommonService commonService;
 
+    @Autowired
+    private SystemConfigService systemConfigService;
+
+
     public WebIndexPageModel getIndex(Integer pageNo, Integer pageSize) {
         WebIndexPageModel webIndexPageModel = new WebIndexPageModel();
-        commonService.setPageCommonData(webIndexPageModel, "男人团，找福利，谋福利，快乐多多，幸福多多", "", "");
+
+        SystemConfigModel systemConfigModel = systemConfigService.list();
+
+        commonService.setPageCommonData(webIndexPageModel
+                , systemConfigModel.getTitle()
+                , systemConfigModel.getKeywords()
+                , systemConfigModel.getDescription());
 
         Pageable pageable = new PageRequest(pageNo, pageSize, new Sort(Sort.Direction.DESC, "id"));
         Page<Article> articles = articleRepository.findAll(pageable);
@@ -67,13 +80,14 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public WebCategoryPageModel getCategory(String path, Integer pageNo, Integer pageSize) {
-        WebCategoryPageModel webCategoryPageModel = new WebCategoryPageModel();
-        commonService.setPageCommonData(webCategoryPageModel,"","","");
-
-        webCategoryPageModel.setNavTitle("");
-        webCategoryPageModel.setNavUrl("");
-
         Category category = categoryRepository.findByPath(path);
+
+        WebCategoryPageModel webCategoryPageModel = new WebCategoryPageModel();
+        commonService.setPageCommonData(webCategoryPageModel, category.getTitle(), category.getKeywords(), category.getDescription());
+
+        webCategoryPageModel.setNavTitle(category.getName());
+        webCategoryPageModel.setNavUrl(uriService.getCategoryURI(category.getPath()));
+
         Pageable pageable = new PageRequest(pageNo, pageSize, new Sort(Sort.Direction.DESC, "id"));
         Page<Article> articles = articleRepository.findAllByCategory(category, pageable);
         webCategoryPageModel.setList(convertArticleList(articles.getContent()));
@@ -108,21 +122,19 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     public WebArticlePageModel getArticle(Long id) {
-        WebArticlePageModel webArticlePageModel = new WebArticlePageModel();
-        commonService.setPageCommonData(webArticlePageModel,"","","");
-
         Article article = articleRepository.findOne(id);
+
+        WebArticlePageModel webArticlePageModel = new WebArticlePageModel();
+        commonService.setPageCommonData(webArticlePageModel, article.getTitle(), article.getKeywords(), article.getDescription());
         if (article != null) {
-            webArticlePageModel.setTitle("");//todo
-            webArticlePageModel.setKeywords("");//todo
-            webArticlePageModel.setDescription("");
-            webArticlePageModel.setNavTitle("");
-            webArticlePageModel.setNavUrl("");
+            webArticlePageModel.setTitle(article.getTitle());
+            webArticlePageModel.setKeywords(article.getKeywords());
+            webArticlePageModel.setDescription(article.getDescription());
+            webArticlePageModel.setNavTitle(article.getCategory().getName());
+            webArticlePageModel.setNavUrl(uriService.getCategoryURI(article.getCategory().getPath()));
 
             WebArticleModel webArticleModel = new WebArticleModel();
             webArticleModel.setTitle(article.getTitle());
-            webArticleModel.setDescription(article.getDescription());
-            webArticleModel.setKeywords(article.getKeywords());
             webArticleModel.setTime(article.getUploadTime());
 
             webArticleModel.setContent(article.getContent());

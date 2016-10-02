@@ -9,7 +9,5 @@ import lombok.Setter;
 @Getter
 @Setter
 public class WebArticleModel extends WebArticleListModel {
-    private String keywords;
-    private String description;
     private String content;
 }

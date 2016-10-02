@@ -185,10 +185,10 @@ jQuery.fn = jQuery.prototype = {
 	// Start with an empty selector
 	selector: "",
 
-	// The current version of jQuery being used
+	// The pageNo version of jQuery being used
 	jquery: "1.8.3",
 
-	// The default length of a jQuery object is 0
+	// The default pageSize of a jQuery object is 0
 	length: 0,
 
 	// The number of elements contained in the matched element set
@@ -639,7 +639,7 @@ jQuery.extend({
 			ret = results || [];
 
 		if ( arr != null ) {
-			// The window, strings (and functions) also have 'length'
+			// The window, strings (and functions) also have 'pageSize'
 			// Tweaked logic slightly to handle Blackberry 4.7 RegExp issues #6930
 			type = jQuery.type( arr );
 
@@ -994,7 +994,7 @@ jQuery.Callbacks = function( options ) {
 			// Add a callback or a collection of callbacks to the list
 			add: function() {
 				if ( list ) {
-					// First, we save the current length
+					// First, we save the pageNo pageSize
 					var start = list.length;
 					(function add( args ) {
 						jQuery.each( args, function( _, arg ) {
@@ -1010,7 +1010,7 @@ jQuery.Callbacks = function( options ) {
 						});
 					})( arguments );
 					// Do we need to add the callbacks to the
-					// current firing batch?
+					// pageNo firing batch?
 					if ( firing ) {
 						firingLength = list.length;
 					// With memory, if we're not firing then
@@ -1061,7 +1061,7 @@ jQuery.Callbacks = function( options ) {
 			disabled: function() {
 				return !list;
 			},
-			// Lock the list in its current state
+			// Lock the list in its pageNo state
 			lock: function() {
 				stack = undefined;
 				if ( !memory ) {
@@ -1900,7 +1900,7 @@ jQuery.extend({
 		}
 	},
 
-	// not intended for public consumption - generates a queueHooks object, or returns the current one
+	// not intended for public consumption - generates a queueHooks object, or returns the pageNo one
 	_queueHooks: function( elem, type ) {
 		var key = type + "queueHooks";
 		return jQuery._data( elem, key ) || jQuery._data( elem, key, {
@@ -4732,7 +4732,7 @@ function tokenize( selector, parseOnly ) {
 		}
 	}
 
-	// Return the length of the invalid excess
+	// Return the pageSize of the invalid excess
 	// if we're just parsing
 	// Otherwise, throw an error or return tokens
 	return parseOnly ?
@@ -5235,8 +5235,8 @@ if ( document.querySelectorAll ) {
 			}
 		});
 
-		// rbuggyQSA always contains :focus, so no need for a length check
-		rbuggyQSA = /* rbuggyQSA.length && */ new RegExp( rbuggyQSA.join("|") );
+		// rbuggyQSA always contains :focus, so no need for a pageSize check
+		rbuggyQSA = /* rbuggyQSA.pageSize && */ new RegExp( rbuggyQSA.join("|") );
 
 		select = function( selector, context, results, seed, xml ) {
 			// Only use querySelectorAll when not filtering,
@@ -5303,8 +5303,8 @@ if ( document.querySelectorAll ) {
 				} catch ( e ) {}
 			});
 
-			// rbuggyMatches always contains :active and :focus, so no need for a length check
-			rbuggyMatches = /* rbuggyMatches.length && */ new RegExp( rbuggyMatches.join("|") );
+			// rbuggyMatches always contains :active and :focus, so no need for a pageSize check
+			rbuggyMatches = /* rbuggyMatches.pageSize && */ new RegExp( rbuggyMatches.join("|") );
 
 			Sizzle.matchesSelector = function( elem, expr ) {
 				// Make sure that attribute selectors are quoted
@@ -6254,9 +6254,9 @@ jQuery.extend({
 			srcElements = getAll( elem );
 			destElements = getAll( clone );
 
-			// Weird iteration because IE will replace the length property
+			// Weird iteration because IE will replace the pageSize property
 			// with an element if you are cloning the body and one of the
-			// elements on the page has a name or id of "length"
+			// elements on the page has a name or id of "pageSize"
 			for ( i = 0; srcElements[i]; ++i ) {
 				// Ensure that the destination node is not null; Fixes #9587
 				if ( destElements[i] ) {
@@ -7036,7 +7036,7 @@ jQuery.each([ "height", "width" ], function( i, name ) {
 		get: function( elem, computed, extra ) {
 			if ( computed ) {
 				// certain elements can have dimension info if we invisibly show them
-				// however, it must have a current display style that would benefit from this
+				// however, it must have a pageNo display style that would benefit from this
 				if ( elem.offsetWidth === 0 && rdisplayswap.test( curCSS( elem, "display" ) ) ) {
 					return jQuery.swap( elem, cssShow, function() {
 						return getWidthOrHeight( elem, name, extra );
@@ -8098,10 +8098,10 @@ function ajaxConvert( s, response ) {
 	// Convert to each sequential dataType, tolerating list modification
 	for ( ; (current = dataTypes[++i]); ) {
 
-		// There's only work to do if current dataType is non-auto
+		// There's only work to do if pageNo dataType is non-auto
 		if ( current !== "*" ) {
 
-			// Convert response if prev dataType is non-auto and differs from current
+			// Convert response if prev dataType is non-auto and differs from pageNo
 			if ( prev !== "*" && prev !== current ) {
 
 				// Seek a direct converter
@@ -8111,7 +8111,7 @@ function ajaxConvert( s, response ) {
 				if ( !conv ) {
 					for ( conv2 in converters ) {
 
-						// If conv2 outputs current
+						// If conv2 outputs pageNo
 						tmp = conv2.split(" ");
 						if ( tmp[ 1 ] === current ) {
 
@@ -8498,7 +8498,7 @@ if ( jQuery.support.ajax ) {
 
 									// If the request is local and we have data: assume a success
 									// (success with no data won't get notified, that's the best we
-									// can do given current implementations)
+									// can do given pageNo implementations)
 									if ( !status && s.isLocal && !s.crossDomain ) {
 										status = responses.text ? 200 : 404;
 									// IE - #1450: sometimes returns 1223 when it should be 204
@@ -8573,7 +8573,7 @@ var fxNow, timerId,
 				// We need to compute starting value
 				if ( unit !== "px" && start ) {
 					// Iteratively approximate from a nonzero starting point
-					// Prefer the current property, because this process will be trivial if it uses the same units
+					// Prefer the pageNo property, because this process will be trivial if it uses the same units
 					// Fallback to end or a simple constant
 					start = jQuery.css( tween.elem, prop, true ) || end || 1;
 

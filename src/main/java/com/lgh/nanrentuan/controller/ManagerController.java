@@ -1,11 +1,14 @@
 package com.lgh.nanrentuan.controller;
 
 
+import com.lgh.nanrentuan.entity.SystemConfig;
 import com.lgh.nanrentuan.repository.ArticleRepository;
 import com.lgh.nanrentuan.repository.CategoryRepository;
 import com.lgh.nanrentuan.entity.Article;
 import com.lgh.nanrentuan.model.*;
+import com.lgh.nanrentuan.repository.SystemConfigRepository;
 import com.lgh.nanrentuan.service.CategoryService;
+import com.lgh.nanrentuan.service.SystemConfigService;
 import com.lgh.nanrentuan.service.resource.StaticResourceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,6 +25,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -46,6 +50,10 @@ public class ManagerController {
 
     @Autowired
     private StaticResourceService staticResourceService;
+
+
+    @Autowired
+    private SystemConfigService systemConfigService;
 
     @RequestMapping("/main")
     public String main(HttpServletRequest request) {
@@ -75,24 +83,39 @@ public class ManagerController {
 
     @RequestMapping("/articlelist.do")
     @ResponseBody
-    public PageListModel articlelistdo(@RequestBody AdminArticleListRequest data) {
+    public PageListModel articlelistdo(@RequestParam(required = false) Integer pageNo,
+                                       @RequestParam(required = false) Integer pageSize,
+                                       @RequestParam(required = false) String key) {
 
         PageListModel result = new PageListModel();
 
         StringBuilder hql = new StringBuilder();
+        StringBuilder hqlTotal = new StringBuilder();
         hql.append("select a from Article a");
-        if (!StringUtils.isEmpty(data.getKey())) hql.append(" where a.title like :title");
+        hqlTotal.append("select count(1) from Article a");
+
+        if (!StringUtils.isEmpty(key)) {
+            hql.append(" where a.title like :title");
+            hqlTotal.append(" where a.title like :title");
+        }
 
         hql.append(" order by a.id desc");
 
         Query query = entityManager.createQuery(hql.toString());
-        if (!StringUtils.isEmpty(data.getKey())) query.setParameter("title", "%" + data.getKey() + "%");
-        query.setFirstResult((data.getCurrent() - 1) * data.getLength());
-        query.setMaxResults(data.getLength());
+        Query queryTotal = entityManager.createQuery(hqlTotal.toString());
+        if (!StringUtils.isEmpty(key)) {
+            query.setParameter("title", "%" + key + "%");
+            queryTotal.setParameter("title", "%" + key + "%");
+        }
+        query.setFirstResult((pageNo - 1) * pageSize);
+        query.setMaxResults(pageSize);
         List resultList = query.getResultList();
+        Long total = Long.parseLong(queryTotal.getSingleResult().toString());
 
         List<AdminArticleModel> list = new ArrayList<>();
-        resultList.forEach(x -> {
+        resultList.forEach(x ->
+
+        {
             Article article = (Article) x;
             list.add(new AdminArticleModel(article.getId(), article.getTitle()
                     , article.getKeywords()
@@ -104,11 +127,11 @@ public class ManagerController {
         });
         result.setList(list);
 
-
-        PagingModel page = new PagingModel();
-        page.setCurrent(data.getCurrent());
-        page.setLength(data.getLength());
-        page.setCount(resultList.size());
+        Paging page = new Paging();
+        page.setPageNumber(pageNo);
+        page.setPageSize(pageSize);
+        page.setTotalCount(total);
+        page.setTotalPage((int) (Math.ceil(total / pageNo)));
         result.setPage(page);
 
         return result;
@@ -157,8 +180,8 @@ public class ManagerController {
             article.setDescription(request.getDescription());
             article.setKeywords(request.getKeywords());
             article.setTitle(request.getTitle());
-            article.setUploadTime(request.getUploadTime());
-            article.setViews(request.getViews());
+            article.setUploadTime(new Date());
+            article.setViews(request.getViews() == null ? 0 : request.getViews());
             article.setCategory(categoryRepository.findOne(request.getCategoryId()));
             article.setPictureUrl(request.getPictureUrl());
             articleRepository.save(article);
@@ -170,7 +193,7 @@ public class ManagerController {
             article.setKeywords(request.getKeywords());
             article.setTitle(request.getTitle());
             article.setUploadTime(request.getUploadTime());
-            article.setViews(request.getViews());
+            article.setViews(request.getViews() == null ? 0 : request.getViews());
             article.setCategory(categoryRepository.findOne(request.getCategoryId()));
             article.setPictureUrl(request.getPictureUrl());
             articleRepository.save(article);
@@ -193,6 +216,19 @@ public class ManagerController {
         return 1;
     }
 
+
+    @RequestMapping("/configEdit")
+    public String configEdit(Model model) {
+        model.addAttribute("page", systemConfigService.list());
+        return "manager/configEdit";
+    }
+
+    @RequestMapping("/configEdit.save")
+    @ResponseBody
+    public Integer configEditSave(String title, String keywords, String description, String top) {
+        systemConfigService.save(title, keywords, description, top);
+        return 1;
+    }
 
     /**
      * 富文本图片上传

@@ -12,9 +12,8 @@ import java.util.List;
  */
 public interface CommonService {
 
-    /**
-     * 设置seo等公共数据
-     *
+    /***
+     *设置seo等公共数据
      * @param webBasePageModel
      * @param title
      * @param keywords
@@ -33,6 +32,7 @@ public interface CommonService {
 
     /**
      * 获得错误页面
+     *
      * @return
      */
     WebErrorPageModel getErrorPage();

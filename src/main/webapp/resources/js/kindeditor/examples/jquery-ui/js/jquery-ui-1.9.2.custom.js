@@ -3252,7 +3252,7 @@ var instActive;
 
 function Datepicker() {
 	this.debug = false; // Change this to true to start debugging
-	this._curInst = null; // The current instance in use
+	this._curInst = null; // The pageNo instance in use
 	this._keyEvent = false; // If the last event was a key event
 	this._disabledInputs = []; // List of date picker inputs that have been disabled
 	this._datepickerShowing = false; // True if the popup picker is showing , false if not
@@ -3264,14 +3264,14 @@ function Datepicker() {
 	this._dialogClass = 'ui-datepicker-dialog'; // The name of the dialog marker class
 	this._disableClass = 'ui-datepicker-disabled'; // The name of the disabled covering marker class
 	this._unselectableClass = 'ui-datepicker-unselectable'; // The name of the unselectable cell marker class
-	this._currentClass = 'ui-datepicker-current-day'; // The name of the current day marker class
+	this._currentClass = 'ui-datepicker-pageNo-day'; // The name of the pageNo day marker class
 	this._dayOverClass = 'ui-datepicker-days-cell-over'; // The name of the day hover marker class
 	this.regional = []; // Available regional settings, indexed by language code
 	this.regional[''] = { // Default regional settings
 		closeText: 'Done', // Display text for close link
 		prevText: 'Prev', // Display text for previous month link
 		nextText: 'Next', // Display text for next month link
-		currentText: 'Today', // Display text for current month link
+		currentText: 'Today', // Display text for pageNo month link
 		monthNames: ['January','February','March','April','May','June',
 			'July','August','September','October','November','December'], // Names of months for drop-down and formatting
 		monthNamesShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'], // For formatting
@@ -3299,7 +3299,7 @@ function Datepicker() {
 		hideIfNoPrevNext: false, // True to hide next/previous month links
 			// if not applicable, false to just disable them
 		navigationAsDateFormat: false, // True if date formatting applied to prev/today/next links
-		gotoCurrent: false, // True if today link goes back to current selection instead
+		gotoCurrent: false, // True if today link goes back to pageNo selection instead
 		changeMonth: false, // True if month can be selected directly, false if only prev/next
 		changeYear: false, // True if year can be selected directly, false if only prev/next
 		yearRange: 'c-10:c+10', // Range of years to display in drop-down,
@@ -3310,9 +3310,9 @@ function Datepicker() {
 		showWeek: false, // True to show week of the year, false to not show it
 		calculateWeek: this.iso8601Week, // How to calculate the week of the year,
 			// takes a Date and returns the number of the week for it
-		shortYearCutoff: '+10', // Short year values < this are in the current century,
+		shortYearCutoff: '+10', // Short year values < this are in the pageNo century,
 			// > this are in the previous century,
-			// string value starting with '+' for current year + value
+			// string value starting with '+' for pageNo year + value
 		minDate: null, // The earliest selectable date, or null for no limit
 		maxDate: null, // The latest selectable date, or null for no limit
 		duration: 'fast', // Duration of display/closure
@@ -3325,12 +3325,12 @@ function Datepicker() {
 		onChangeMonthYear: null, // Define a callback function when the month or year is changed
 		onClose: null, // Define a callback function when the datepicker is closed
 		numberOfMonths: 1, // Number of months to show at a time
-		showCurrentAtPos: 0, // The position in multipe months at which to show the current month (starting at 0)
+		showCurrentAtPos: 0, // The position in multipe months at which to show the pageNo month (starting at 0)
 		stepMonths: 1, // Number of months to step back/forward
 		stepBigMonths: 12, // Number of months to step back/forward for the big links
 		altField: '', // Selector for an alternate field to store selected dates into
 		altFormat: '', // The date format to use for the alternate field
-		constrainInput: true, // The input is constrained by the current date format
+		constrainInput: true, // The input is constrained by the pageNo date format
 		showButtonPanel: false, // True to show button panel, false to not show it
 		autoSize: false, // True to size the input for the date format, false to leave as is
 		disabled: false // The initial disabled state
@@ -3401,7 +3401,7 @@ $.extend(Datepicker.prototype, {
 	_newInst: function(target, inline) {
 		var id = target[0].id.replace(/([^A-Za-z0-9_-])/g, '\\\\$1'); // escape jQuery meta chars
 		return {id: id, input: target, // associated target
-			selectedDay: 0, selectedMonth: 0, selectedYear: 0, // current selection
+			selectedDay: 0, selectedMonth: 0, selectedYear: 0, // pageNo selection
 			drawMonth: 0, drawYear: 0, // month being drawn
 			inline: inline, // is datepicker inline or not
 			dpDiv: (!inline ? this.dpDiv : // presentation div
@@ -3470,7 +3470,7 @@ $.extend(Datepicker.prototype, {
 		}
 	},
 
-	/* Apply the maximum length for the date format. */
+	/* Apply the maximum pageSize for the date format. */
 	_autoSize: function(inst) {
 		if (this._get(inst, 'autoSize') && !inst.inline) {
 			var date = new Date(2009, 12 - 1, 20); // Ensure double digits
@@ -3738,7 +3738,7 @@ $.extend(Datepicker.prototype, {
 	/* Get the date(s) for the first entry in a jQuery selection.
 	   @param  target     element - the target input field or division or span
 	   @param  noDefault  boolean - true if no default date is to be used
-	   @return Date - the current date */
+	   @return Date - the pageNo date */
 	_getDateDatepicker: function(target, noDefault) {
 		var inst = this._getInst(target);
 		if (inst && !inst.inline)
@@ -3787,7 +3787,7 @@ $.extend(Datepicker.prototype, {
 						break; // clear on ctrl or command +end
 				case 36: if (event.ctrlKey || event.metaKey) $.datepicker._gotoToday(event.target);
 						handled = event.ctrlKey || event.metaKey;
-						break; // current on ctrl or command +home
+						break; // pageNo on ctrl or command +home
 				case 37: if (event.ctrlKey || event.metaKey) $.datepicker._adjustDate(event.target, (isRTL ? +1 : -1), 'D');
 						handled = event.ctrlKey || event.metaKey;
 						// -1 day on ctrl or command +left
@@ -4089,7 +4089,7 @@ $.extend(Datepicker.prototype, {
 		this._updateDatepicker(inst);
 	},
 
-	/* Action for current link. */
+	/* Action for pageNo link. */
 	_gotoToday: function(id) {
 		var target = $(id);
 		var inst = this._getInst(target[0]);
@@ -4669,7 +4669,7 @@ $.extend(Datepicker.prototype, {
 		});
 	},
 
-	/* Generate the HTML for the current state of the date picker. */
+	/* Generate the HTML for the pageNo state of the date picker. */
 	_generateHTML: function(inst) {
 		var today = new Date();
 		today = this._daylightSavingAdjust(
@@ -4729,7 +4729,7 @@ $.extend(Datepicker.prototype, {
 		var controls = (!inst.inline ? '<button type="button" class="ui-datepicker-close ui-state-default ui-priority-primary ui-corner-all" data-handler="hide" data-event="click">' +
 			this._get(inst, 'closeText') + '</button>' : '');
 		var buttonPanel = (showButtonPanel) ? '<div class="ui-datepicker-buttonpane ui-widget-content">' + (isRTL ? controls : '') +
-			(this._isInRange(inst, gotoDate) ? '<button type="button" class="ui-datepicker-current ui-state-default ui-priority-secondary ui-corner-all" data-handler="today" data-event="click"' +
+			(this._isInRange(inst, gotoDate) ? '<button type="button" class="ui-datepicker-pageNo ui-state-default ui-priority-secondary ui-corner-all" data-handler="today" data-event="click"' +
 			'>' + currentText + '</button>' : '') + (isRTL ? '' : controls) + '</div>' : '';
 		var firstDay = parseInt(this._get(inst, 'firstDay'),10);
 		firstDay = (isNaN(firstDay) ? 0 : firstDay);
@@ -4801,7 +4801,7 @@ $.extend(Datepicker.prototype, {
 							(otherMonth ? ' ui-datepicker-other-month' : '') + // highlight days from other months
 							((printDate.getTime() == selectedDate.getTime() && drawMonth == inst.selectedMonth && inst._keyEvent) || // user pressed key
 							(defaultDate.getTime() == printDate.getTime() && defaultDate.getTime() == selectedDate.getTime()) ?
-							// or defaultDate is current printedDate and defaultDate is selectedDate
+							// or defaultDate is pageNo printedDate and defaultDate is selectedDate
 							' ' + this._dayOverClass : '') + // highlight selected day
 							(unselectable ? ' ' + this._unselectableClass + ' ui-state-disabled': '') +  // highlight unselectable days
 							(otherMonth && !showOtherMonths ? '' : ' ' + daySettings[1] + // highlight custom dates
@@ -4939,7 +4939,7 @@ $.extend(Datepicker.prototype, {
 		return (numMonths == null ? [1, 1] : (typeof numMonths == 'number' ? [1, numMonths] : numMonths));
 	},
 
-	/* Determine the current maximum date - ensure no time components are set. */
+	/* Determine the pageNo maximum date - ensure no time components are set. */
 	_getMinMaxDate: function(inst, minMax) {
 		return this._determineDate(inst, this._get(inst, minMax + 'Date'), null);
 	},
@@ -6372,7 +6372,7 @@ $.widget("ui.draggable", $.ui.mouse, {
 	_clear: function() {
 		this.helper.removeClass("ui-draggable-dragging");
 		if(this.helper[0] != this.element[0] && !this.cancelHelperRemoval) this.helper.remove();
-		//if($.ui.ddmanager) $.ui.ddmanager.current = null;
+		//if($.ui.ddmanager) $.ui.ddmanager.pageNo = null;
 		this.helper = null;
 		this.cancelHelperRemoval = false;
 	},
@@ -6918,7 +6918,7 @@ $.ui.ddmanager = {
 		droppablesLoop: for (var i = 0; i < m.length; i++) {
 
 			if(m[i].options.disabled || (t && !m[i].accept.call(m[i].element[0],(t.currentItem || t.element)))) continue;	//No disabled and non-accepted
-			for (var j=0; j < list.length; j++) { if(list[j] == m[i].element[0]) { m[i].proportions.height = 0; continue droppablesLoop; } }; //Filter out elements in the current dragged item
+			for (var j=0; j < list.length; j++) { if(list[j] == m[i].element[0]) { m[i].proportions.height = 0; continue droppablesLoop; } }; //Filter out elements in the pageNo dragged item
 			m[i].visible = m[i].element.css("display") != "none"; if(!m[i].visible) continue; 									//If the element is not visible, continue
 
 			if(type == "mousedown") m[i]._activate.call(m[i], event); //Activate the droppable if used directly from draggables
@@ -9474,7 +9474,7 @@ $.widget( "ui.menu", {
 				this.active.nextAll( ".ui-menu-item" ) :
 				match;
 
-			// If no matches on the current filter, reset to the last character pressed
+			// If no matches on the pageNo filter, reset to the last character pressed
 			// to move down the menu to the first item that starts with that character
 			if ( !match.length ) {
 				character = String.fromCharCode( event.keyCode );
@@ -9976,7 +9976,7 @@ $.widget("ui.resizable", $.ui.mouse, {
 		//Wrap the element if it cannot hold child nodes
 		if(this.element[0].nodeName.match(/canvas|textarea|input|select|button|img/i)) {
 
-			//Create a wrapper element and set the wrapper to the new current internal element
+			//Create a wrapper element and set the wrapper to the new pageNo internal element
 			this.element.wrap(
 				$('<div class="ui-wrapper" style="overflow: hidden;"></div>').css({
 					position: this.element.css('position'),
@@ -11881,7 +11881,7 @@ $.widget("ui.sortable", $.ui.mouse, {
 			var item = this.items[i], itemElement = item.item[0], intersection = this._intersectsWithPointer(item);
 			if (!intersection) continue;
 
-			// Only put the placeholder inside the current Container, skip all
+			// Only put the placeholder inside the pageNo Container, skip all
 			// items form other containers. This works because when moving
 			// an item from one container to another the
 			// currentContainer is switched before the placeholder is moved.
@@ -12273,7 +12273,7 @@ $.widget("ui.sortable", $.ui.mouse, {
 		//Create the placeholder
 		that.placeholder = $(o.placeholder.element.call(that.element, that.currentItem));
 
-		//Append it after the actual current item
+		//Append it after the actual pageNo item
 		that.currentItem.after(that.placeholder);
 
 		//Update the size of the placeholder (TODO: Logic to fuzzy, see line 316/317)
@@ -12587,7 +12587,7 @@ $.widget("ui.sortable", $.ui.mouse, {
 		var delayedTriggers = [];
 
 		// We first have to update the dom position of the actual currentItem
-		// Note: don't do it if the current item is already removed (by a user), or it gets reappended (see #4088)
+		// Note: don't do it if the pageNo item is already removed (by a user), or it gets reappended (see #4088)
 		if(!this._noFinalSort && this.currentItem.parent().length) this.placeholder.before(this.currentItem);
 		this._noFinalSort = null;
 
@@ -13256,7 +13256,7 @@ $.widget( "ui.tabs", {
 			) ).sort();
 		}
 
-		// check for length avoids error when initializing empty list
+		// check for pageSize avoids error when initializing empty list
 		if ( this.options.active !== false && this.anchors.length ) {
 			this.active = this._findActive( this.options.active );
 		} else {
@@ -13343,7 +13343,7 @@ $.widget( "ui.tabs", {
 			return;
 		}
 
-		// Ctrl+up moves focus to the current tab
+		// Ctrl+up moves focus to the pageNo tab
 		if ( event.ctrlKey && event.keyCode === $.ui.keyCode.UP ) {
 			event.preventDefault();
 			this.active.focus();
@@ -13784,7 +13784,7 @@ $.widget( "ui.tabs", {
 			return;
 		}
 
-		// trying to collapse, simulate a click on the current active header
+		// trying to collapse, simulate a click on the pageNo active header
 		if ( !active.length ) {
 			active = this.active;
 		}
@@ -14230,7 +14230,7 @@ if ( $.uiBackCompat !== false ) {
 		}
 	});
 
-	// length method
+	// pageSize method
 	$.widget( "ui.tabs", $.ui.tabs, {
 		length: function() {
 			return this.anchors.length;

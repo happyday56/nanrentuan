@@ -35,6 +35,13 @@ a:hover {
     font-size: 0px;
 }
 
+.title {
+    font-size: 16px;
+    font-weight: normal;
+    height: 30px;
+    line-height: 30px;
+}
+
 .search {
     border: solid 1px #dadada;
     border-bottom: 0px;
@@ -79,6 +86,8 @@ a:hover {
     line-height: 27px;
     text-align: center;
     font-family: "微软雅黑";
+    font-weight: normal;
+    font-size: 12px;
 }
 
 .button1:hover {
@@ -219,42 +228,30 @@ a:hover {
     float: left;
 }
 
-ul.pagination {
-    float: right;
-    font-size: 12px;
-    clear: both;
+/*.pagination .active a, .pagination .active a:focus, .pagination .active a:hover, .pagination .active span, .pagination .active span:focus, .pagination .active span:hover {*/
+/*border-color: #DDD;*/
+/*}*/
+
+.pagination {
+    text-align: right;
 }
 
-ul.pagination li {
-    float: left;
-    padding-right: 5px;
-}
+.pagination a {
+    background-color: #FFF;
+    border: 1px solid #DDD;
+    padding: 4px 10px;
 
-ul.pagination li a {
-    padding: 3px 3px;
-    border: 1px solid #ccc;
     text-decoration: none;
-    display: block;
-    background: #fff url(../images/bg_fade_up.png) repeat-x bottom;
-    min-width: 20px;
-    text-align: center;
+    margin: 0px 5px 0px 5px;
 }
 
-ul.pagination li.page a {
-    color: #cc0000;
-    font-weight: normal;
-}
-
-ul.pagination li.page a:hover {
-    color: #fff;
-}
-
-ul.pagination li.text a {
-    border: none;
-    text-decoration: underline;
-    padding: 0 5px 0 0;
-}
-
-ul.pagination li.text {
-    line-height: 2em;
+.pagination .txt {
+    background: none repeat scroll 0 0 #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    color: #000;
+    height: 18px;
+    line-height: 1.5;
+    padding: 3px 7px;
+    width: 60px;
 }
