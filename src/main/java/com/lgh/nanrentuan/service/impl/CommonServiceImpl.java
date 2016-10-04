@@ -56,10 +56,10 @@ public class CommonServiceImpl implements CommonService {
         List<WebTopNavListModel> list = new ArrayList<>();
         List<Category> categories = categoryRepository.findAllOrderBySortAsc();
         categories.stream().filter(x -> x.getParent() == null).forEach(parent -> {
-            WebTopNavListModel p = new WebTopNavListModel(parent.getPath(), parent.getName());
+            WebTopNavListModel p = new WebTopNavListModel(uriService.getCategoryURI(parent.getPath()), parent.getName());
             List<WebTopNavListModel> list1 = new ArrayList<>();
             categories.stream().filter(y -> y.getParent() != null && y.getParent().equals(parent)).forEach(next -> {
-                list1.add(new WebTopNavListModel(next.getPath(), next.getName()));
+                list1.add(new WebTopNavListModel(uriService.getCategoryURI(next.getPath()), next.getName()));
             });
             p.setList(list1);
             list.add(p);

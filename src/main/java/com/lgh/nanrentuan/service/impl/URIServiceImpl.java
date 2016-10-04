@@ -18,7 +18,7 @@ public class URIServiceImpl implements URIService {
             if (StringUtils.isEmpty(two)) {
                 return "/" + one;
             } else {
-                return "/" + two;
+                return "/" + one + "/" + two;
             }
         }
         return "/";

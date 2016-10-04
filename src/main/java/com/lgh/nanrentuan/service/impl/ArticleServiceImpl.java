@@ -18,6 +18,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import javax.persistence.EntityManager;
 import java.net.URISyntaxException;
@@ -71,7 +72,7 @@ public class ArticleServiceImpl implements ArticleService {
         paging.setPageNumber(pageNo);
         paging.setTotalCount(articles.getTotalElements());
         paging.setTotalPage(articles.getTotalPages());
-        paging.setUrl("/index/[number]");
+        paging.setUrl("/[number]");
         paging.setPages(paging.getPages());
         webIndexPageModel.setPaging(paging);
 
@@ -111,7 +112,9 @@ public class ArticleServiceImpl implements ArticleService {
             WebArticleListModel webArticleListModel = new WebArticleListModel();
             webArticleListModel.setId(x.getId());
             webArticleListModel.setTitle(x.getTitle());
-            webArticleListModel.setPictureUrl(getPictureUrl(x.getPictureUrl()));
+            if (!StringUtils.isEmpty(x.getPictureUrl())) {
+                webArticleListModel.setPictureUrl(getPictureUrl(x.getPictureUrl()));
+            }
             webArticleListModel.setSummary(x.getSummary());
             webArticleListModel.setTime(x.getUploadTime());
             webArticleListModel.setUrl(uriService.getArticleURI(x.getId()));

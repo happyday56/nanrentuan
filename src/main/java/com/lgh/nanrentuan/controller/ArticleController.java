@@ -31,38 +31,38 @@ public class ArticleController {
     @Autowired
     private CommonService commonService;
 
-    @RequestMapping("/")
+    @RequestMapping(value = "")
     public String index(Model model) {
         return index(0, model);
     }
 
-    @RequestMapping(value = "/index/{page}")
+    @RequestMapping(value = "/{page:[0-9]+}")
     public String index(@PathVariable("page") Integer page, Model model) {
         model.addAttribute("page", articleService.getIndex(page, 10));
         return "index";
 //        return test(model);
     }
 
-
-    @RequestMapping("/{path}")
+    @RequestMapping("/{path:[a-z]+}")
     public String category(@PathVariable(value = "path") String path, Model model) {
         return category(path, 0, model);
     }
 
-    @RequestMapping("/{path}/{page}")
+    @RequestMapping("/{path:[a-z]+}/{page:[0-9]+}")
     public String category(@PathVariable(value = "path") String path, @PathVariable(value = "page") Integer page, Model model) {
         model.addAttribute("page", articleService.getCategory(path, page, 10));
         return "category";
     }
 
-    @RequestMapping("/{id}.html")
+
+    @RequestMapping("/{id:[0-9]+}.html")
     public String article(@PathVariable(value = "id") Long id, Model model) {
         model.addAttribute("page", articleService.getArticle(id));
         return "article";
     }
 
 
-    @RequestMapping(value = "/viewcount", method = RequestMethod.GET)
+    @RequestMapping(value = "/view/viewcount", method = RequestMethod.GET)
     @ResponseBody
     public void viewcount(@RequestParam Long id) throws Exception {
         Article blog = articleRepository.findOne(id);
@@ -93,9 +93,11 @@ public class ArticleController {
         return "404error";
     }
 
-    @RequestMapping(value = "/test")
+    @RequestMapping(value = "/system/test")
     public String test(Model model) {
         model.addAttribute("page", "i here");
         return "test";
     }
+
+
 }

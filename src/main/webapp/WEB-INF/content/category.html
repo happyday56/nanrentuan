@@ -24,7 +24,7 @@
                     <a th:href="*{item.url}" th:title="*{item.title }"><h2 th:text="*{item.title}"></h2></a>
                 </div>
                 <div class="list_summary">
-                    <div class="list_img_holder"><a th:href="*{item.url}"><img th:src="*{item.pictureUrl}"/></a></div>
+                    <div class="list_img_holder"><a th:href="*{item.url}"><img th:if="*{item.pictureUrl!=null}" th:src="*{item.pictureUrl}"/></a></div>
                     <th:block th:text="*{item.summary }"></th:block>
                     <div class="meta" th:text="*{#calendars.format(item.time,'yyyy-MM-dd')}"></div>
                 </div>

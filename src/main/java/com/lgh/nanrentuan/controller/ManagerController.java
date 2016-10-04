@@ -1,12 +1,11 @@
 package com.lgh.nanrentuan.controller;
 
 
-import com.lgh.nanrentuan.entity.SystemConfig;
+
 import com.lgh.nanrentuan.repository.ArticleRepository;
 import com.lgh.nanrentuan.repository.CategoryRepository;
 import com.lgh.nanrentuan.entity.Article;
 import com.lgh.nanrentuan.model.*;
-import com.lgh.nanrentuan.repository.SystemConfigRepository;
 import com.lgh.nanrentuan.service.CategoryService;
 import com.lgh.nanrentuan.service.SystemConfigService;
 import com.lgh.nanrentuan.service.resource.StaticResourceService;
@@ -244,7 +243,7 @@ public class ManagerController {
         MultipartFile file = request.getFile("imgFile");
 
         String fileExt = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1).toLowerCase();
-        String fileName = StaticResourceService.article + "/" + UUID.randomUUID().toString() + "." + fileExt;
+        String fileName = StaticResourceService.article + "/" + UUID.randomUUID().toString().replace("-", "") + "." + fileExt;
 
         URI uri = staticResourceService.uploadResource(fileName, file.getInputStream());
         result.setCode(1);
@@ -294,7 +293,7 @@ public class ManagerController {
         }
 
         //保存图片
-        fileName = StaticResourceService.article + "/" + UUID.randomUUID().toString() + "." + ext.toLowerCase();
+        fileName = StaticResourceService.article + "/" + UUID.randomUUID().toString().replace("-", "") + "." + ext.toLowerCase();
         URI uri = staticResourceService.uploadResource(fileName, shareImage.getInputStream());
         response.setHeader("X-frame-Options", "SAMEORIGIN");
         resultModel.setCode(1);
