@@ -1,6 +1,9 @@
 package com.lgh.nanrentuan.controller;
 
 import com.lgh.nanrentuan.entity.Article;
+import com.lgh.nanrentuan.model.WebArticleBaseModel;
+import com.lgh.nanrentuan.model.WebArticlePageModel;
+import com.lgh.nanrentuan.model.WebCategoryPageModel;
 import com.lgh.nanrentuan.repository.ArticleRepository;
 import com.lgh.nanrentuan.service.ArticleService;
 import com.lgh.nanrentuan.service.CommonService;
@@ -45,20 +48,34 @@ public class ArticleController {
 
     @RequestMapping("/{path:[a-z]+}")
     public String category(@PathVariable(value = "path") String path, Model model) {
-        return category(path, 0, model);
+//        log.info("path " + path);
+        if (path.equals("favicon"))
+            return "empty";
+        else
+            return category(path, 0, model);
     }
 
     @RequestMapping("/{path:[a-z]+}/{page:[0-9]+}")
     public String category(@PathVariable(value = "path") String path, @PathVariable(value = "page") Integer page, Model model) {
-        model.addAttribute("page", articleService.getCategory(path, page, 10));
-        return "category";
+        WebCategoryPageModel webCategoryPageModel = articleService.getCategory(path, page, 10);
+        if (webCategoryPageModel != null) {
+            model.addAttribute("page", webCategoryPageModel);
+            return "category";
+        } else {
+            return "empty";
+        }
     }
 
 
     @RequestMapping("/{id:[0-9]+}.html")
     public String article(@PathVariable(value = "id") Long id, Model model) {
-        model.addAttribute("page", articleService.getArticle(id));
-        return "article";
+        WebArticlePageModel webArticlePageModel = articleService.getArticle(id);
+        if (webArticlePageModel != null) {
+            model.addAttribute("page", webArticlePageModel);
+            return "article";
+        } else {
+            return "empty";
+        }
     }
 
 
@@ -93,11 +110,15 @@ public class ArticleController {
         return "404error";
     }
 
-    @RequestMapping(value = "/system/test")
+    @RequestMapping(value = "/html/test")
     public String test(Model model) {
         model.addAttribute("page", "i here");
         return "test";
     }
 
+    @RequestMapping(value = "/html/empty")
+    public String empty(Model model) {
+        return "empty";
+    }
 
 }

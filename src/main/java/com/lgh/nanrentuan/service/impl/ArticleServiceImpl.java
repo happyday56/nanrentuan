@@ -82,28 +82,30 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public WebCategoryPageModel getCategory(String path, Integer pageNo, Integer pageSize) {
         Category category = categoryRepository.findByPath(path);
+        if (category != null) {
+            WebCategoryPageModel webCategoryPageModel = new WebCategoryPageModel();
+            commonService.setPageCommonData(webCategoryPageModel, category.getTitle(), category.getKeywords(), category.getDescription());
 
-        WebCategoryPageModel webCategoryPageModel = new WebCategoryPageModel();
-        commonService.setPageCommonData(webCategoryPageModel, category.getTitle(), category.getKeywords(), category.getDescription());
+            webCategoryPageModel.setNavTitle(category.getName());
+            webCategoryPageModel.setNavUrl(uriService.getCategoryURI(category.getPath()));
 
-        webCategoryPageModel.setNavTitle(category.getName());
-        webCategoryPageModel.setNavUrl(uriService.getCategoryURI(category.getPath()));
+            Pageable pageable = new PageRequest(pageNo, pageSize, new Sort(Sort.Direction.DESC, "id"));
+            Page<Article> articles = articleRepository.findAllByCategory(category, pageable);
+            webCategoryPageModel.setList(convertArticleList(articles.getContent()));
 
-        Pageable pageable = new PageRequest(pageNo, pageSize, new Sort(Sort.Direction.DESC, "id"));
-        Page<Article> articles = articleRepository.findAllByCategory(category, pageable);
-        webCategoryPageModel.setList(convertArticleList(articles.getContent()));
+            Paging paging = new Paging();
+            paging.setPageSize(pageSize);
+            paging.setPageNumber(pageNo);
+            paging.setTotalCount(articles.getTotalElements());
+            paging.setTotalPage(articles.getTotalPages());
 
-        Paging paging = new Paging();
-        paging.setPageSize(pageSize);
-        paging.setPageNumber(pageNo);
-        paging.setTotalCount(articles.getTotalElements());
-        paging.setTotalPage(articles.getTotalPages());
+            paging.setUrl("/" + path + "/[number]");
+            paging.setPages(paging.getPages());
+            webCategoryPageModel.setPaging(paging);
 
-        paging.setUrl("/" + path + "/[number]");
-        paging.setPages(paging.getPages());
-        webCategoryPageModel.setPaging(paging);
-
-        return webCategoryPageModel;
+            return webCategoryPageModel;
+        }
+        return null;
     }
 
     private List<WebArticleListModel> convertArticleList(List<Article> articles) {
@@ -126,26 +128,28 @@ public class ArticleServiceImpl implements ArticleService {
 
     public WebArticlePageModel getArticle(Long id) {
         Article article = articleRepository.findOne(id);
-
-        WebArticlePageModel webArticlePageModel = new WebArticlePageModel();
-        commonService.setPageCommonData(webArticlePageModel, article.getTitle(), article.getKeywords(), article.getDescription());
         if (article != null) {
-            webArticlePageModel.setTitle(article.getTitle());
-            webArticlePageModel.setKeywords(article.getKeywords());
-            webArticlePageModel.setDescription(article.getDescription());
-            webArticlePageModel.setNavTitle(article.getCategory().getName());
-            webArticlePageModel.setNavUrl(uriService.getCategoryURI(article.getCategory().getPath()));
+            WebArticlePageModel webArticlePageModel = new WebArticlePageModel();
+            commonService.setPageCommonData(webArticlePageModel, article.getTitle(), article.getKeywords(), article.getDescription());
+            if (article != null) {
+                webArticlePageModel.setTitle(article.getTitle());
+                webArticlePageModel.setKeywords(article.getKeywords());
+                webArticlePageModel.setDescription(article.getDescription());
+                webArticlePageModel.setNavTitle(article.getCategory().getName());
+                webArticlePageModel.setNavUrl(uriService.getCategoryURI(article.getCategory().getPath()));
 
-            WebArticleModel webArticleModel = new WebArticleModel();
-            webArticleModel.setTitle(article.getTitle());
-            webArticleModel.setTime(article.getUploadTime());
+                WebArticleModel webArticleModel = new WebArticleModel();
+                webArticleModel.setTitle(article.getTitle());
+                webArticleModel.setTime(article.getUploadTime());
 
-            webArticleModel.setContent(article.getContent());
-            webArticleModel.setId(article.getId());
-            webArticleModel.setViews(article.getViews());
-            webArticlePageModel.setData(webArticleModel);
+                webArticleModel.setContent(article.getContent());
+                webArticleModel.setId(article.getId());
+                webArticleModel.setViews(article.getViews());
+                webArticlePageModel.setData(webArticleModel);
+            }
+            return webArticlePageModel;
         }
-        return webArticlePageModel;
+        return null;
     }
 
 
