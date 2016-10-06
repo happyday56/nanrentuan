@@ -50,7 +50,7 @@ public class ArticleController {
     public String category(@PathVariable(value = "path") String path, Model model) {
 //        log.info("path " + path);
         if (path.equals("favicon"))
-            return "empty";
+            return "404error";
         else
             return category(path, 0, model);
     }
@@ -62,7 +62,7 @@ public class ArticleController {
             model.addAttribute("page", webCategoryPageModel);
             return "category";
         } else {
-            return "empty";
+            return "404error";
         }
     }
 
@@ -74,7 +74,7 @@ public class ArticleController {
             model.addAttribute("page", webArticlePageModel);
             return "article";
         } else {
-            return "empty";
+            return "404error";
         }
     }
 
@@ -106,7 +106,7 @@ public class ArticleController {
 
     @RequestMapping(value = "/404error")
     public String error(Model model) {
-        model.addAttribute("page", commonService.getErrorPage());
+//        model.addAttribute("page", commonService.getErrorPage());
         return "404error";
     }
 
@@ -116,9 +116,9 @@ public class ArticleController {
         return "test";
     }
 
-    @RequestMapping(value = "/html/empty")
-    public String empty(Model model) {
-        return "empty";
-    }
+//    @RequestMapping(value = "/html/empty")
+//    public String empty(Model model) {
+//        return "empty";
+//    }
 
 }

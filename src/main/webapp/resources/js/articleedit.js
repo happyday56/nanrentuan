@@ -3,6 +3,17 @@ var oper = J.getQueryString("oper");
 var model = {};
 
 $(function () {
+    $("#uploadTime").datetimepicker({
+        changeMonth: true,
+        changeYear: true,
+        timeFormat: 'hh:mm:00',
+        stepHour: 2,
+        stepMinute: 10,
+        stepSecond: 10,
+        dayNamesMin: ["七", "一", "二", "三", "四", "五", "六"],
+        monthNamesShort: ["一", "二", "三", "四", "五", "六", "七", "八", "九", "十", "十一", "十二"]
+    });
+
     if (oper == "edit") {
         J.AjaxJsonPost("articleedit.do?id=" + id, "",
             function (data) {
