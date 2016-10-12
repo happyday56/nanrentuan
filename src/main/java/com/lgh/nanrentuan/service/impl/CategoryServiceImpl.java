@@ -3,6 +3,7 @@ package com.lgh.nanrentuan.service.impl;
 import com.lgh.nanrentuan.entity.Category;
 import com.lgh.nanrentuan.model.AdminCategoryListModel;
 import com.lgh.nanrentuan.model.AdminCategoryModel;
+import com.lgh.nanrentuan.model.AppCategoryModel;
 import com.lgh.nanrentuan.model.CategoryListModel;
 import com.lgh.nanrentuan.repository.CategoryRepository;
 import com.lgh.nanrentuan.service.CategoryService;
@@ -105,5 +106,21 @@ public class CategoryServiceImpl implements CategoryService {
             if (parent != null) category.setParent(parent);
         }
         categoryRepository.save(category);
+    }
+
+    public List<AppCategoryModel> getAppCategoryList() {
+        List<AppCategoryModel> appCategoryModels = new ArrayList<>();
+        List<CategoryListModel> categoryListModels = getParents();
+
+        categoryListModels.forEach(x -> {
+            AppCategoryModel appCategoryModel = new AppCategoryModel();
+            appCategoryModel.setTypeId(x.getId().toString());
+            appCategoryModel.setTypeTitle(x.getName());
+            appCategoryModel.setTb_TopicName(x.getId().toString());
+            appCategoryModel.setTypeAd("0");
+            appCategoryModel.setTypeIntro(x.getName());
+            appCategoryModels.add(appCategoryModel);
+        });
+        return appCategoryModels;
     }
 }

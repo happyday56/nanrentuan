@@ -15,8 +15,9 @@ public class AppArticleModel {
     private Long barnnerType;
     private String id;
     private String title;
+    private String summary;
     private String content;
-    private Date time;
+    private String time;
     private Long commentCount;
     private Long likeCount;
     private String userName;
@@ -24,6 +25,12 @@ public class AppArticleModel {
     private String sourceFrom;
     private String sourceUrl;
     private String headPath;
+    /**
+     * 详情中的图片
+     */
     private String images;
+    /**
+     * 列表中的图片
+     */
     private String imagesThumbnail;
 }

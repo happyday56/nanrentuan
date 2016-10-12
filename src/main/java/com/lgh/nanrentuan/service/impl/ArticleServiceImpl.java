@@ -2,11 +2,9 @@ package com.lgh.nanrentuan.service.impl;
 
 import com.lgh.nanrentuan.entity.Article;
 import com.lgh.nanrentuan.entity.Category;
-import com.lgh.nanrentuan.entity.SystemConfig;
 import com.lgh.nanrentuan.model.*;
 import com.lgh.nanrentuan.repository.ArticleRepository;
 import com.lgh.nanrentuan.repository.CategoryRepository;
-import com.lgh.nanrentuan.repository.SystemConfigRepository;
 import com.lgh.nanrentuan.service.ArticleService;
 import com.lgh.nanrentuan.service.CommonService;
 import com.lgh.nanrentuan.service.SystemConfigService;
@@ -22,6 +20,7 @@ import org.springframework.util.StringUtils;
 
 import javax.persistence.EntityManager;
 import java.net.URISyntaxException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,7 +64,7 @@ public class ArticleServiceImpl implements ArticleService {
 
         Pageable pageable = new PageRequest(pageNo, pageSize, new Sort(Sort.Direction.DESC, "id"));
         Page<Article> articles = articleRepository.findAll(pageable);
-        webIndexPageModel.setList(convertArticleList(articles.getContent()));
+        webIndexPageModel.setList(toWebArticleList(articles.getContent()));
 
         Paging paging = new Paging();
         paging.setPageSize(pageSize);
@@ -91,7 +90,7 @@ public class ArticleServiceImpl implements ArticleService {
 
             Pageable pageable = new PageRequest(pageNo, pageSize, new Sort(Sort.Direction.DESC, "id"));
             Page<Article> articles = articleRepository.findAllByCategory(category, pageable);
-            webCategoryPageModel.setList(convertArticleList(articles.getContent()));
+            webCategoryPageModel.setList(toWebArticleList(articles.getContent()));
 
             Paging paging = new Paging();
             paging.setPageSize(pageSize);
@@ -108,7 +107,7 @@ public class ArticleServiceImpl implements ArticleService {
         return null;
     }
 
-    private List<WebArticleListModel> convertArticleList(List<Article> articles) {
+    private List<WebArticleListModel> toWebArticleList(List<Article> articles) {
         List<WebArticleListModel> list = new ArrayList<>();
         articles.forEach(x -> {
             WebArticleListModel webArticleListModel = new WebArticleListModel();
@@ -122,6 +121,60 @@ public class ArticleServiceImpl implements ArticleService {
             webArticleListModel.setUrl(uriService.getArticleURI(x.getId()));
             webArticleListModel.setViews(x.getViews());
             list.add(webArticleListModel);
+        });
+        return list;
+    }
+
+    public AppArticleListModel getAppArticleList(Long categoryId, Integer page) {
+        AppArticleListModel appArticleListModel = new AppArticleListModel();
+
+        Pageable pageable = new PageRequest(page, 10, new Sort(Sort.Direction.DESC, "id"));
+
+        Category category = null;
+        if (categoryId != null && categoryId > 0) {
+            category = categoryRepository.findOne(categoryId);
+        }
+
+        Page<Article> articles = null;
+        if (category != null)
+            articles = articleRepository.findAllByCategory(category, pageable);
+        else
+            articles = articleRepository.findAll(pageable);
+
+        appArticleListModel.setCount(articles.getTotalPages());
+        appArticleListModel.setPage(page);
+        appArticleListModel.setTotalNum(articles.getTotalElements());
+
+        appArticleListModel.setDataList(toAppArticleList(articles.getContent()));
+        return appArticleListModel;
+    }
+
+    private List<AppArticleModel> toAppArticleList(List<Article> articles) {
+        List<AppArticleModel> list = new ArrayList<>();
+        articles.forEach(x -> {
+            AppArticleModel appArticleModel = new AppArticleModel();
+            appArticleModel.setId(x.getId().toString());
+            appArticleModel.setTitle(x.getTitle());
+//            if (!StringUtils.isEmpty(x.getPictureUrl())) {
+//                appArticleModel.setImagesThumbnail(getPictureUrl(x.getPictureUrl()));
+//            }
+            appArticleModel.setContent(x.getContent());
+            appArticleModel.setSummary(x.getSummary());
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            appArticleModel.setTime(simpleDateFormat.format(x.getUploadTime()));
+//            appArticleModel.setUrl(uriService.getArticleURI(x.getId()));
+            appArticleModel.setLikeCount(x.getViews());
+
+            appArticleModel.setUserName("欢喜阅");
+//            appArticleModel.setHeadPath("http://tp4.sinaimg.cn/1053636487/30/1297394933/1");
+            appArticleModel.setImagesThumbnail("http://ww4.sinaimg.cn/mw600/ad525726jw1dzpjp99lgxj.jpg,http://ww3.sinaimg.cn/mw600/ad525726jw1dzpjpe1vvij.jpg");
+            appArticleModel.setImages("http://ww4.sinaimg.cn/mw600/ad525726jw1dzpjp99lgxj.jpg,http://ww3.sinaimg.cn/mw600/ad525726jw1dzpjpe1vvij.jpg");
+//            appArticleModel.setSourceUrl("http://qing.blog.sina.com.cn/tj/46daaffc33001xr4.html");
+//            appArticleModel.setSourceFrom("未知");
+            appArticleModel.setBarnnerType(0L);
+//            appArticleModel.setLikeCount(0L);
+            appArticleModel.setCommentCount(0L);
+            list.add(appArticleModel);
         });
         return list;
     }

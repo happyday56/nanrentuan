@@ -1,6 +1,7 @@
 package com.lgh.nanrentuan.service;
 
 
+import com.lgh.nanrentuan.model.AppArticleListModel;
 import com.lgh.nanrentuan.model.WebArticlePageModel;
 import com.lgh.nanrentuan.model.WebCategoryPageModel;
 import com.lgh.nanrentuan.model.WebIndexPageModel;
@@ -43,4 +44,12 @@ public interface ArticleService {
      * @return
      */
     String getPictureUrl(String path);
+
+    /**
+     * 获取app文章列表
+     * @param categoryId 分类id
+     * @param page 当前页
+     * @return
+     */
+    AppArticleListModel getAppArticleList(Long categoryId, Integer page);
 }

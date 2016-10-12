@@ -1,18 +1,19 @@
 package com.lgh.nanrentuan.controller;
 
 import com.lgh.nanrentuan.model.*;
+import com.lgh.nanrentuan.service.ArticleService;
 import com.lgh.nanrentuan.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
-import static org.eclipse.persistence.sessions.SessionProfiler.Register;
 
 /**
  * Created by Administrator on 2016/10/11.
@@ -24,6 +25,9 @@ public class AppController {
     @Autowired
     private CategoryService categoryService;
 
+    @Autowired
+    private ArticleService articleService;
+
     @RequestMapping("/Register")
     @ResponseBody
     public AppResult register() {
@@ -34,7 +38,6 @@ public class AppController {
 
         AppRegisterModel appRegisterModel = new AppRegisterModel();
         appRegisterModel.setKeys("f9baa248290ac8f98dbf3f4a2a6602c8");
-
 
 
         appResultContent.setData(appRegisterModel);
@@ -55,20 +58,7 @@ public class AppController {
         appLoginModel.setIsAdmin(1L);
         appLoginModel.setHaveNewVer("0");
 
-        List<AppCategoryModel> appCategoryModels = new ArrayList<>();
-
-        List<CategoryListModel> categoryListModels = categoryService.getParents();
-        categoryListModels.forEach(x -> {
-            AppCategoryModel appCategoryModel = new AppCategoryModel();
-            appCategoryModel.setTypeId(x.getId().toString());
-            appCategoryModel.setTypeTitle(x.getName());
-            appCategoryModel.setTb_TopicName(x.getId().toString());
-            appCategoryModel.setTypeAd("0");
-            appCategoryModel.setTypeIntro(x.getName());
-            appCategoryModels.add(appCategoryModel);
-        });
-
-        appLoginModel.setDataList(appCategoryModels);
+        appLoginModel.setDataList(categoryService.getAppCategoryList());
 
         appResultContent.setData(appLoginModel);
         appResult.setResult(appResultContent);
@@ -77,26 +67,14 @@ public class AppController {
 
     @RequestMapping("/list")
     @ResponseBody
-    public AppResult list() {
+    public AppResult list(@RequestParam(value = "arcTypeID", required = false) String arcTypeID
+            , @RequestParam(value = "page", required = false) Integer page) {
         AppResult appResult = new AppResult();
         AppResultContent appResultContent = new AppResultContent();
         appResultContent.setCode(0L);
         appResultContent.setMsg("");
 
-
-        AppArticleListModel appArticleListModel = new AppArticleListModel();
-        appArticleListModel.setCount(5);
-        appArticleListModel.setPage(0);
-        appArticleListModel.setTotalNum(5);
-        List<AppArticleModel> list = new ArrayList<>();
-
-        list.add(getAppArticleModel(54964));
-        list.add(getAppArticleModel(54965));
-        list.add(getAppArticleModel(54966));
-        list.add(getAppArticleModel(54967));
-        list.add(getAppArticleModel(54968));
-
-        appArticleListModel.setDataList(list);
+        AppArticleListModel appArticleListModel = articleService.getAppArticleList(Long.valueOf(arcTypeID), page);
         appResultContent.setData(appArticleListModel);
         appResult.setResult(appResultContent);
         return appResult;
@@ -107,10 +85,9 @@ public class AppController {
         appArticleModel.setId(id.toString());
         appArticleModel.setTitle("时间变短了");
         appArticleModel.setContent("公司座落在被誉为“包公故里、三国旧址、淮军摇篮");
-        appArticleModel.setTime(new Date());
+//        appArticleModel.setTime(new Date());
 
         appArticleModel.setUserName("zhagnsan");
-
         appArticleModel.setHeadPath("http://tp4.sinaimg.cn/1053636487/30/1297394933/1");
         appArticleModel.setImagesThumbnail("http://ww4.sinaimg.cn/mw600/ad525726jw1dzpjp99lgxj.jpg,http://ww3.sinaimg.cn/mw600/ad525726jw1dzpjpe1vvij.jpg");
         appArticleModel.setImages("http://ww4.sinaimg.cn/mw600/ad525726jw1dzpjp99lgxj.jpg,http://ww3.sinaimg.cn/mw600/ad525726jw1dzpjpe1vvij.jpg");

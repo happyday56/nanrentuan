@@ -15,7 +15,7 @@ public class AppArticleListModel {
 
     private Integer page;
     private Integer count;
-    private Integer totalNum;
+    private Long totalNum;
     private List<AppArticleModel> dataList;
 
 }
