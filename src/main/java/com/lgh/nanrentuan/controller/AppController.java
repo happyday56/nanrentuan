@@ -90,11 +90,11 @@ public class AppController {
         appArticleListModel.setTotalNum(5);
         List<AppArticleModel> list = new ArrayList<>();
 
-        list.add(getAppArticleModel());
-        list.add(getAppArticleModel());
-        list.add(getAppArticleModel());
-        list.add(getAppArticleModel());
-        list.add(getAppArticleModel());
+        list.add(getAppArticleModel(54964));
+        list.add(getAppArticleModel(54965));
+        list.add(getAppArticleModel(54966));
+        list.add(getAppArticleModel(54967));
+        list.add(getAppArticleModel(54968));
 
         appArticleListModel.setDataList(list);
         appResultContent.setData(appArticleListModel);
@@ -102,18 +102,23 @@ public class AppController {
         return appResult;
     }
 
-    private AppArticleModel getAppArticleModel() {
+    private AppArticleModel getAppArticleModel(Integer id) {
         AppArticleModel appArticleModel = new AppArticleModel();
-        appArticleModel.setId(UUID.randomUUID().toString());
+        appArticleModel.setId(id.toString());
         appArticleModel.setTitle("时间变短了");
-        appArticleModel.setContent("公司座落在被誉为“包公故里、三国旧址、淮军摇篮、科教基地、滨湖新城”的省会城市――安徽合肥。");
+        appArticleModel.setContent("公司座落在被誉为“包公故里、三国旧址、淮军摇篮");
+        appArticleModel.setTime(new Date());
+
         appArticleModel.setUserName("zhagnsan");
-        appArticleModel.setTime(new Date().toString());
-        appArticleModel.setHeadPath("head");
+
+        appArticleModel.setHeadPath("http://tp4.sinaimg.cn/1053636487/30/1297394933/1");
         appArticleModel.setImagesThumbnail("http://ww4.sinaimg.cn/mw600/ad525726jw1dzpjp99lgxj.jpg,http://ww3.sinaimg.cn/mw600/ad525726jw1dzpjpe1vvij.jpg");
         appArticleModel.setImages("http://ww4.sinaimg.cn/mw600/ad525726jw1dzpjp99lgxj.jpg,http://ww3.sinaimg.cn/mw600/ad525726jw1dzpjpe1vvij.jpg");
-        appArticleModel.setSourceUrl("sourceurl");
-        appArticleModel.setSourceFrom("sourceRom");
+        appArticleModel.setSourceUrl("http://qing.blog.sina.com.cn/tj/46daaffc33001xr4.html");
+        appArticleModel.setSourceFrom("未知");
+        appArticleModel.setBarnnerType(0L);
+        appArticleModel.setLikeCount(0L);
+        appArticleModel.setCommentCount(0L);
         return appArticleModel;
     }
 }

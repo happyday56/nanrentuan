@@ -3,6 +3,8 @@ package com.lgh.nanrentuan.model;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Date;
+
 /**
  * Created by Administrator on 2016/10/11.
  */
@@ -10,13 +12,13 @@ import lombok.Setter;
 @Setter
 public class AppArticleModel {
 
-    private String barnnerType;
+    private Long barnnerType;
     private String id;
     private String title;
     private String content;
-    private String time;
-    private String commentCount;
-    private String likeCount;
+    private Date time;
+    private Long commentCount;
+    private Long likeCount;
     private String userName;
 
     private String sourceFrom;
