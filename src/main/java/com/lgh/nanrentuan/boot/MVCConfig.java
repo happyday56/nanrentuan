@@ -7,10 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.HandlerExceptionResolver;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.*;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
@@ -90,5 +87,22 @@ public class MVCConfig extends WebMvcConfigurerAdapter {
         return new CommonsMultipartResolver();
     }
 
+
+
+    @Bean
+    CommonInterceptor commonInterceptor() {
+        return new CommonInterceptor();
+    }
+
+    @Autowired
+    private CommonInterceptor commonInterceptor;
+
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(commonInterceptor)
+                .addPathPatterns("/*")
+                .excludePathPatterns("/man/*")
+                .excludePathPatterns("/resources/*");
+
+    }
 
 }
