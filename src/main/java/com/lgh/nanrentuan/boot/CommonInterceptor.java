@@ -4,6 +4,7 @@ package com.lgh.nanrentuan.boot;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -19,11 +20,18 @@ public class CommonInterceptor implements HandlerInterceptor {
 
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
-        log.info(request.getServerName());
+        try {
+            log.info("url:" + request.getRequestURL());
+            log.info("referer:" + request.getHeader("Referer"));
+            log.info("user-agent:" + request.getHeader("User-Agent"));
+            log.info("ip:" + getIp(request));
+
+        } catch (Exception ex) {
+
+        }
 
         return true;
     }
-
 
 
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
@@ -35,6 +43,20 @@ public class CommonInterceptor implements HandlerInterceptor {
 
     }
 
-
-
+    public String getIp(HttpServletRequest request) {
+        String ip = request.getHeader("X-Forwarded-For");
+        if (!StringUtils.isEmpty(ip) && !"unKnown".equalsIgnoreCase(ip)) {
+            int index = ip.indexOf(",");
+            if (index != -1) {
+                return ip.substring(0, index);
+            } else {
+                return ip;
+            }
+        }
+        ip = request.getHeader("X-Real-IP");
+        if (!StringUtils.isEmpty(ip) && !"unKnown".equalsIgnoreCase(ip)) {
+            return ip;
+        }
+        return request.getRemoteAddr();
+    }
 }
