@@ -9,6 +9,7 @@ import com.lgh.nanrentuan.repository.ArticleRepository;
 import com.lgh.nanrentuan.service.ArticleService;
 import com.lgh.nanrentuan.service.CommonService;
 import com.lgh.nanrentuan.service.URIService;
+import com.lgh.nanrentuan.utils.StringHelper;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -117,8 +118,9 @@ public class ArticleController {
     }
 
     @RequestMapping(value = "/html/test")
-    public String test(Model model) {
-        model.addAttribute("page", "i here");
+    public String test(HttpServletRequest request) {
+//        model.addAttribute("page", "i here");
+        log.info(StringHelper.getIp(request));
         return "test";
     }
 

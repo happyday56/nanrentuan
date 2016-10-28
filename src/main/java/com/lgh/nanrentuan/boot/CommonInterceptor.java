@@ -1,6 +1,7 @@
 package com.lgh.nanrentuan.boot;
 
 
+import com.lgh.nanrentuan.utils.StringHelper;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -24,7 +25,7 @@ public class CommonInterceptor implements HandlerInterceptor {
             log.info("url:" + request.getRequestURL());
             log.info("referer:" + request.getHeader("Referer"));
             log.info("user-agent:" + request.getHeader("User-Agent"));
-            log.info("ip:" + getIp(request));
+            log.info("ip:" + StringHelper.getIp(request));
 
         } catch (Exception ex) {
 
@@ -43,20 +44,5 @@ public class CommonInterceptor implements HandlerInterceptor {
 
     }
 
-    public String getIp(HttpServletRequest request) {
-        String ip = request.getHeader("X-Forwarded-For");
-        if (!StringUtils.isEmpty(ip) && !"unKnown".equalsIgnoreCase(ip)) {
-            int index = ip.indexOf(",");
-            if (index != -1) {
-                return ip.substring(0, index);
-            } else {
-                return ip;
-            }
-        }
-        ip = request.getHeader("X-Real-IP");
-        if (!StringUtils.isEmpty(ip) && !"unKnown".equalsIgnoreCase(ip)) {
-            return ip;
-        }
-        return request.getRemoteAddr();
-    }
+
 }
