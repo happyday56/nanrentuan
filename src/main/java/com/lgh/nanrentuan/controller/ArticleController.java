@@ -88,6 +88,18 @@ public class ArticleController {
             articleRepository.save(blog);
         }
     }
+
+    /**
+     * 欢乐变兼容
+     * @param id
+     * @param model
+     * @return
+     */
+    @RequestMapping("/v/news/{id:[0-9]+}.html")
+    public String huanlebian(@PathVariable(value = "id") Long id, Model model) {
+        return article(id,model);
+    }
+
 //
 //    @RequestMapping(value = "/about")
 //    public String about(Model model) {

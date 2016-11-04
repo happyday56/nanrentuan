@@ -50,10 +50,8 @@ img {
 
 /*topbar*/
 .top_bar {
-    background: #373D41 none repeat scroll 0 0;
     height: 100px;
     position: relative;
-    color: #ffffff;
 }
 
 /*topmenubar*/
