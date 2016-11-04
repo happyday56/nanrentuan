@@ -1,5 +1,6 @@
 package com.lgh.nanrentuan.controller;
 
+import com.huotu.common.base.CookieHelper;
 import com.lgh.nanrentuan.entity.Article;
 import com.lgh.nanrentuan.model.WebArticleBaseModel;
 import com.lgh.nanrentuan.model.WebArticlePageModel;
@@ -8,12 +9,18 @@ import com.lgh.nanrentuan.repository.ArticleRepository;
 import com.lgh.nanrentuan.service.ArticleService;
 import com.lgh.nanrentuan.service.CommonService;
 import com.lgh.nanrentuan.service.URIService;
+import com.lgh.nanrentuan.utils.StringHelper;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.UUID;
 
 /**
  * Created by Administrator on 2016/9/9.
@@ -123,10 +130,29 @@ public class ArticleController {
     }
 
     @RequestMapping(value = "/html/test")
-    public String test(Model model) {
-        model.addAttribute("page", "i here");
+    public String test(HttpServletRequest request) {
+//        model.addAttribute("page", "i here");
+        log.info(StringHelper.getIp(request));
         return "test";
     }
+
+    @RequestMapping(value = "/html/cookie")
+    @ResponseBody
+    public String cookie(HttpServletRequest request, HttpServletResponse response, Model model) {
+        StringBuilder result = new StringBuilder();
+        String key = "t";
+        String getCookie = CookieHelper.get(request, key);
+        result.append("current cookie is " + getCookie);
+        log.info("current cookie is " + getCookie);
+        if (StringUtils.isEmpty(getCookie)) {
+            String value = UUID.randomUUID().toString();
+            CookieHelper.set(response, key, value, request.getServerName(), 1000 * 60 * 60);
+            result.append("set cookie " + value);
+            log.info("set cookie " + value);
+        }
+        return result.toString();
+    }
+
 
 //    @RequestMapping(value = "/html/empty")
 //    public String empty(Model model) {
